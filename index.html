@@ -898,9 +898,10 @@
                  ${renderLeadHeader(r)}
                  <div class="lead-card-info">
                      <p><strong>🧾 ${escapeHtml(r.name)}</strong></p>
-                     <p>📞 ${formatPhone(r.phone)}</p>
-                     <p>✉️ ${escapeHtml(r.email)}</p>
-                     <p>⏱️ ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
+                     <p><strong>📞 Nr. Tel:</strong> ${formatPhone(r.phone)}</p>
+                     <p><strong>✉️ Mail:</strong> ${escapeHtml(r.email)}</p>
+                     <p><strong>⏱️ Czas kontaktu:</strong> ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
+                     <p><strong>📢 Kampania:</strong> ${escapeHtml(lead.campaign)}</p>
                  </div>
                  <div class="lead-card-actions">
                      <button class="btn-tool" onclick="openPreview('${escapeHtml(r.id)}')" style="width: 100%;">Szczegóły</button>
