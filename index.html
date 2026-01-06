@@ -393,8 +393,6 @@
          .multiselect { width: 100%; }
          .multiselect-content { width: calc(100vw - 60px); left: 50%; transform: translateX(-50%); }
          .btn-tool { width: 100%; justify-content: center; }
-         .table-scroll { display: none; }
-         .card-view { display: block; }
          .btn-back { padding: 6px 10px; font-size: 12px; left: 8px; }
          .btn-back span { display: none; }
          .modal-preview-box { width: 98%; max-height: 95vh; }
@@ -512,6 +510,26 @@
       
       .status-row .muted {
           white-space: nowrap;
+      }
+
+      .load-more-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 24px 0;
+      }
+      
+      #loadMoreBtn {
+          margin: 0 auto;
+      }
+
+      @media (min-resolution: 1.5dppx) {
+          .table-scroll {
+              display: none;
+          }
+          .card-view {
+              display: block;
+          }
       }
    </style>
 </head>
@@ -716,8 +734,10 @@
                   
                   <div class="card-view" id="cardView"></div>
                   
-                  <div style="text-align:center; padding:20px;">
-                      <button id="loadMoreBtn" onclick="loadDashboard(false)" class="btn-tool" style="display:none;">Załaduj więcej</button>
+                  <div class="load-more-wrapper">
+                      <button id="loadMoreBtn" onclick="loadDashboard(false)" class="btn-tool">
+                          Załaduj więcej
+                      </button>
                   </div>
               </div>
           `;
