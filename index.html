@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>AdHorizon - System Obsługi Leadów</title>
-   <style>
-      * { box-sizing: border-box; }
-      body { 
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>AdHorizon - System Obsługi Leadów</title>
+      <style>
+         * { box-sizing: border-box; }
+         body { 
          font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
          background:#f7f8fa; 
          margin:0; 
@@ -15,46 +15,46 @@
          justify-content:center; 
          align-items:center;
          padding: 10px;
-      }
-      .wrapper { 
+         }
+         .wrapper { 
          max-width:600px; 
          width:100%; 
          background:#fff; 
          border-radius:12px; 
          box-shadow:0 4px 10px rgba(0,0,0,0.05); 
          overflow:hidden; 
-      }
-      .header { 
+         }
+         .header { 
          background: linear-gradient(135deg, #00bcd4, #9c27b0); 
          color:#fff; 
          padding:24px 20px; 
          text-align:center; 
          position: relative; 
-      }
-      .header h2 { 
+         }
+         .header h2 { 
          margin:0; 
          font-size:20px;
          padding: 0 40px;
-      }
-      .content { padding:20px; }
-      .box { 
+         }
+         .content { padding:20px; }
+         .box { 
          background:#f4fbfd; 
          border-left:4px solid #00bcd4; 
          padding:16px; 
          border-radius:6px; 
          margin-bottom:20px; 
-      }
-      .box.data { background:#f0faff; }
-      p { margin:6px 0; font-size:15px; word-wrap: break-word; }
-      .buttons { 
+         }
+         .box.data { background:#f0faff; }
+         p { margin:6px 0; font-size:15px; word-wrap: break-word; }
+         .buttons { 
          text-align:center; 
          margin:30px 0; 
          display: flex; 
          justify-content: center; 
          gap: 10px; 
          flex-wrap: wrap; 
-      }
-      .buttons a, .btn-modal { 
+         }
+         .buttons a, .btn-modal { 
          padding:14px 20px; 
          border-radius:6px; 
          color:white; 
@@ -69,14 +69,13 @@
          display: flex;
          align-items: center;
          justify-content: center;
-      }
-      .buttons a:hover, .btn-tool:hover { opacity: 0.8; }
-      
-      .obs { background:#2E7D32; } 
-      .nie { background:#FF9800; } 
-      .odrz { background:#D32F2F; }
-      .close-btn { background:#555; }
-      .status-badge { 
+         }
+         .buttons a:hover, .btn-tool:hover { opacity: 0.8; }
+         .obs { background:#2E7D32; } 
+         .nie { background:#FF9800; } 
+         .odrz { background:#D32F2F; }
+         .close-btn { background:#555; }
+         .status-badge { 
          display:inline-block; 
          padding:6px 12px; 
          border-radius:999px; 
@@ -85,19 +84,18 @@
          color:#fff; 
          text-transform: uppercase;
          white-space: nowrap;
-      }
-      .s-nowy { background: #2196F3; }
-      .s-obsluzony { background: #2E7D32; }
-      .s-nie_odbiera { background: #FF9800; }
-      .s-odrzucony { background: #D32F2F; }
-      .s-porzucony { background: #9E9E9E; }
-      .muted { font-size:13px; color:#777; }
-      .disabled { opacity:.4; pointer-events: none; }
-      
-      /* Dashboard */
-      body.dashboard-mode { align-items: flex-start; }
-      body.dashboard-mode .wrapper { max-width: 1400px; margin: 20px auto; }
-      .dashboard-toolbar { 
+         }
+         .s-nowy { background: #2196F3; }
+         .s-obsluzony { background: #2E7D32; }
+         .s-nie_odbiera { background: #FF9800; }
+         .s-odrzucony { background: #D32F2F; }
+         .s-porzucony { background: #9E9E9E; }
+         .muted { font-size:13px; color:#777; }
+         .disabled { opacity:.4; pointer-events: none; }
+         /* Dashboard */
+         body.dashboard-mode { align-items: flex-start; }
+         body.dashboard-mode .wrapper { max-width: 1400px; margin: 20px auto; }
+         .dashboard-toolbar { 
          display: flex; 
          flex-wrap: wrap; 
          gap: 10px; 
@@ -107,29 +105,29 @@
          padding: 15px; 
          border-radius: 8px; 
          border: 1px solid #eee; 
-      }
-      .dashboard-toolbar input { 
+         }
+         .dashboard-toolbar input { 
          padding: 12px; 
          border-radius: 8px; 
          border: 1px solid #ddd; 
          font-size: 14px; 
          outline: none;
-      }
-      .date-group {
+         }
+         .date-group {
          display: flex;
          align-items: center;
          gap: 8px;
          flex: 1;
          min-width: 150px;
-      }
-      .date-group label {
+         }
+         .date-group label {
          font-weight: 600;
          font-size: 14px;
          white-space: nowrap;
          margin: 0;
-      }
-      .date-group input { flex: 1; min-width: 0; }
-      .btn-tool { 
+         }
+         .date-group input { flex: 1; min-width: 0; }
+         .btn-tool { 
          padding: 12px 16px; 
          border-radius: 8px; 
          border: 1px solid #ddd; 
@@ -142,10 +140,10 @@
          min-height: 44px;
          font-size: 14px;
          white-space: nowrap;
-      }
-      .btn-apply { background: #2563eb !important; color: white !important; border: none; }
-      .multiselect { position: relative; min-width: 150px; }
-      .multiselect-btn { 
+         }
+         .btn-apply { background: #2563eb !important; color: white !important; border: none; }
+         .multiselect { position: relative; min-width: 150px; }
+         .multiselect-btn { 
          padding: 12px; 
          border: 1px solid #ddd; 
          border-radius: 8px; 
@@ -157,8 +155,8 @@
          justify-content: space-between; 
          align-items: center;
          min-height: 44px;
-      }
-      .multiselect-content { 
+         }
+         .multiselect-content { 
          display: none; 
          position: absolute; 
          background: #fff; 
@@ -172,11 +170,11 @@
          top: 110%; 
          left: 0; 
          box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-          border-radius: 10px;
-          padding: 6px 0;
-      }
-      .multiselect-content.show { display: block; }
-      .multiselect-content label { 
+         border-radius: 10px;
+         padding: 6px 0;
+         }
+         .multiselect-content.show { display: block; }
+         .multiselect-content label { 
          padding: 12px; 
          display: flex;
          align-items: center;
@@ -185,128 +183,116 @@
          font-size: 14px; 
          min-height: 44px;
          border-bottom: none;
-          gap: 10px;
-      }
-      .multiselect-content label:hover { background: #f1f1f1; }
-      .multiselect-content input { margin-right: 10px; }
-      
-      .multiselect-content input[type="checkbox"] {
-          width: 16px;
-          height: 16px;
-          accent-color: #2563eb;
-          cursor: pointer;
-      }
-      /* Table */
-      .table-scroll { 
+         gap: 10px;
+         }
+         .multiselect-content label:hover { background: #f1f1f1; }
+         .multiselect-content input { margin-right: 10px; }
+         .multiselect-content input[type="checkbox"] {
+         width: 16px;
+         height: 16px;
+         accent-color: #2563eb;
+         cursor: pointer;
+         }
+         /* Table */
+         .table-scroll { 
          width: 100%; 
          overflow-x: auto; 
          border: 1px solid #eee; 
          border-radius: 8px; 
-      }
-      .dashboard-table { 
+         }
+         .dashboard-table { 
          width: 100%; 
          border-collapse: collapse; 
          font-size: 14px; 
          min-width: 1000px; 
-      }
-      .dashboard-table thead th { 
+         }
+         .dashboard-table thead th { 
          background: #f4f7fb; 
          padding: 12px 10px; 
          text-align: left; 
          border-bottom: 2px solid #e3e7ee; 
-      }
-      .dashboard-table tbody td { 
+         }
+         .dashboard-table tbody td { 
          padding: 12px 10px; 
          border-bottom: 1px solid #eee; 
-      }
-      .dashboard-table th:last-child,
-      .dashboard-table td:last-child {
-          text-align: center !important;
-          min-width: 120px;
-          width: 1%;
-          white-space: nowrap;
-      }
-      
-      /* Card view */
-      .card-view { display: none; }
-      .lead-card {
+         }
+         .dashboard-table th:last-child,
+         .dashboard-table td:last-child {
+         text-align: center !important;
+         min-width: 120px;
+         width: 1%;
+         white-space: nowrap;
+         }
+         /* Card view */
+         .card-view { display: none; }
+         .lead-card {
          background: #fff;
          border: 1px solid #eee;
          border-radius: 8px;
          padding: 16px;
          margin-bottom: 12px;
          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      }
-      
-      /* ZUNIFIKOWANY HEADER - używany wszędzie */
-      .lead-header {
+         }
+         /* ZUNIFIKOWANY HEADER - używany wszędzie */
+         .lead-header {
          display: flex;
          justify-content: space-between;
          align-items: flex-start;
          gap: 12px;
          flex-wrap: wrap;
          margin-bottom: 12px;
-      }
-      
-      .lead-header-left {
+         }
+         .lead-header-left {
          flex: 1;
          min-width: 200px;
-      }
-      
-      .lead-header-left .lead-id {
+         }
+         .lead-header-left .lead-id {
          font-weight: 700;
          font-size: 16px;
          margin-bottom: 4px;
          color: #333;
-      }
-      
-      .lead-header-left .lead-date {
+         }
+         .lead-header-left .lead-date {
          font-size: 13px;
          color: #777;
-      }
-      
-      .lead-header-left .lead-campaign {
+         }
+         .lead-header-left .lead-campaign {
          font-size: 13px;
          color: #777;
          margin-top: 2px;
-      }
-      
-      .lead-header-right {
+         }
+         .lead-header-right {
          display: flex;
          flex-direction: column;
          align-items: flex-end;
          gap: 6px;
-      }
-      
-      .lead-header-right .lead-updated {
+         }
+         .lead-header-right .lead-updated {
          font-size: 12px;
          color: #999;
          text-align: right;
          line-height: 1.3;
-      }
-      
-      @media (max-width: 768px) {
+         }
+         @media (max-width: 768px) {
          .lead-header {
-            flex-direction: column;
-            align-items: flex-start;
+         flex-direction: column;
+         align-items: flex-start;
          }
          .lead-header-right {
-            align-items: flex-start;
+         align-items: flex-start;
          }
          .lead-header-right .lead-updated {
-            text-align: left;
+         text-align: left;
          }
-      }
-      
-      .lead-card-info p { margin: 4px 0; font-size: 14px; }
-      .lead-card-actions {
+         }
+         .lead-card-info p { margin: 4px 0; font-size: 14px; }
+         .lead-card-actions {
          margin-top: 12px;
          padding-top: 12px;
          border-top: 1px solid #eee;
-      }
-      
-      /* Modals */
-      .loader { 
+         }
+         /* Modals */
+         .loader { 
          position: fixed; 
          inset: 0; 
          background: rgba(0,0,0,0.6); 
@@ -315,9 +301,9 @@
          justify-content: center; 
          z-index: 9999;
          padding: 20px;
-      }
-      .loader.hidden { display: none !important; }
-      .loader-box { 
+         }
+         .loader.hidden { display: none !important; }
+         .loader-box { 
          background: #fff; 
          padding: 30px; 
          border-radius: 12px; 
@@ -326,15 +312,15 @@
          width: 100%; 
          box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
          position: relative; 
-      }
-      .modal-preview-box { 
+         }
+         .modal-preview-box { 
          max-width: 640px; 
          width: 95%; 
          padding: 0; 
          max-height: 90vh;
          overflow-y: auto;
-      }
-      .spinner { 
+         }
+         .spinner { 
          width: 40px; 
          height: 40px; 
          border: 4px solid #ddd; 
@@ -342,38 +328,36 @@
          border-radius: 50%; 
          animation: spin 0.9s linear infinite; 
          margin: 0 auto 15px; 
-      }
-      @keyframes spin { to { transform: rotate(360deg); } }
-      
-      /* Nowy styl modalu potwierdzenia */
-      .confirm-modal-content {
+         }
+         @keyframes spin { to { transform: rotate(360deg); } }
+         /* Nowy styl modalu potwierdzenia */
+         .confirm-modal-content {
          padding: 24px;
-      }
-      .confirm-icon {
+         }
+         .confirm-icon {
          font-size: 48px;
          margin-bottom: 16px;
-      }
-      .confirm-title {
+         }
+         .confirm-title {
          font-size: 18px;
          font-weight: 600;
          margin-bottom: 12px;
-      }
-      .confirm-message {
+         }
+         .confirm-message {
          font-size: 15px;
          color: #666;
          margin-bottom: 24px;
          line-height: 1.5;
-      }
-      .confirm-buttons {
+         }
+         .confirm-buttons {
          display: flex;
          gap: 12px;
-      }
-      .confirm-buttons button {
+         }
+         .confirm-buttons button {
          flex: 1;
-      }
-
-      /* Mobile */
-      @media (max-width: 768px) {
+         }
+         /* Mobile */
+         @media (max-width: 768px) {
          body { padding: 5px; }
          body.dashboard-mode { padding: 10px; }
          .wrapper { border-radius: 8px; margin: 10px 0; }
@@ -393,793 +377,756 @@
          .btn-back { padding: 6px 10px; font-size: 12px; left: 8px; }
          .btn-back span { display: none; }
          .modal-preview-box { width: 98%; max-height: 95vh; }
-      }
-      
-      @media (max-width: 480px) {
+         }
+         @media (max-width: 480px) {
          .header h2 { font-size: 16px; }
          .status-badge { font-size: 11px; padding: 5px 10px; }
          p { font-size: 13px; }
          .lead-card { padding: 12px; }
-      }
-
-      #previewContent,
-      #previewContent p {
-          text-align: left;
-      }
-
-      .modal-preview-box .btn-back {
-          top: 50%;
-          left: 12px;
-      }
-
-      .btn-details {
-          padding: 8px 14px;
-          font-size: 13px;
-          min-height: 36px;
-      }
-
-      .load-more-wrapper {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 24px 0;
-      }
-      
-      #loadMoreBtn {
-          margin: 0 auto;
-      }
-
-      .btn-tool,
-      .btn-modal {
-          background: linear-gradient(135deg, #ffffff, #f3f4f6);
-          border: 1px solid rgba(0,0,0,0.08);
-          border-radius: 12px;
-          color: #333;
-          font-weight: 600;
-          box-shadow:
-              0 6px 14px rgba(0,0,0,.08),
-              inset 0 0 0 1px rgba(255,255,255,.6);
-          transition:
-              transform .18s ease,
-              box-shadow .18s ease,
-              background .18s ease;
-      }
-      
-      .btn-tool:hover,
-      .btn-modal:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 14px 28px rgba(0,0,0,.16);
-      }
-      
-      /* PRIMARY */
-      .btn-tool.btn-apply {
-          background: linear-gradient(135deg, #2563eb, #1e40af);
-          color: #fff;
-          border: none;
-      }
-      
-      /* CONFIRM */
-      .btn-modal.obs {
-          background: linear-gradient(135deg, #43a047, #2e7d32);
-      }
-      
-      /* CANCEL / CLOSE */
-      .btn-modal.close-btn {
-          background: linear-gradient(135deg, #9e9e9e, #616161);
-          color: #fff;
-      }
-
-      /* ===== HEADER & MODAL ===== */
-      .header {
-          background: linear-gradient(135deg, #00bcd4, #9c27b0);
-          color: #fff;
-          position: relative;
-          padding: 24px 20px;
-          text-align: center;
-      }
-      .modal-preview-box .header {
-          background: linear-gradient(135deg, rgba(0,188,212,0.85), rgba(156,39,176,0.85));
-      }
-      .btn-back {
-          position: absolute;
-          left: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          padding: 8px 14px;
-          border-radius: 999px;
-          background: rgba(0,0,0,0.25);
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.35);
-          font-size: 13px;
-          font-weight: 600;
-          cursor: pointer;
-          backdrop-filter: blur(8px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-          transition: all 0.2s ease;
-          min-height: 36px;
-      }
-      .btn-back::before { content:"←"; font-size:16px; display:inline-block; }
-      .btn-back span { display:inline; }
-      @media (max-width: 768px) {
-          .btn-back span { display:none; }
-          .btn-back { padding:6px 10px; font-size:12px; }
-      }
-      .btn-back:hover {
-          background: rgba(0,0,0,0.35);
-          transform: translateY(-50%) translateX(-3px);
-      }
-      
-      /* ===== STATUS BUTTONS ===== */
-      .buttons.status-buttons {
-          margin-top: 24px;
-      }
-      
-      .buttons.status-buttons a {
-          position: relative;
-          flex: 1;
-          min-width: 160px;
-          padding: 16px 18px;
-          border-radius: 14px;
-          font-weight: 600;
-          letter-spacing: .2px;
-          opacity: 1;
-          filter: none;
-          background: #f4f4f4;
-          box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
-          transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-      }
-      .buttons.status-buttons a:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 18px rgba(0,0,0,.12);
-      }
-      .buttons.status-buttons a.active {
-          color: #fff;
-          box-shadow: 0 4px 12px rgba(0,0,0,.25), 0 0 0 2px rgba(255,255,255,.15);
-          transform: translateY(-1px);
-          border: 1px solid rgba(255,255,255,0.3);
-      }
-      
-      /* Gradienty statusów */
-      .buttons.status-buttons a.obs { background: linear-gradient(135deg, #43a047, #2e7d32); }
-      .buttons.status-buttons a.nie { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
-      .buttons.status-buttons a.odrz { background: linear-gradient(135deg, #e53935, #b71c1c); }
-      
-      /* Nieaktywne */
-      .buttons.status-buttons a:not(.active) { opacity: .65; filter: grayscale(25%); }
-      .buttons.status-buttons.disabled a { pointer-events:none; opacity:.35; filter: grayscale(80%); }
-      
-      /* MOBILE */
-      @media (max-width: 768px) {
-          .buttons.status-buttons a {
-              min-width: 100%;
-          }
-      }
-      
-      /* ===== TABELA vs KARTY ===== */
-      @media (max-width: 1000px) {
-          .table-scroll { display: none; }
-          .card-view { display: block; }
-      }
-      @media (min-width: 1001px) {
-          .table-scroll { display: block; }
-          .card-view { display: none; }
-      }
-      
-      /* ===== GRADIENTY KONTRAST ===== */
-      .status-badge.s-nowy { background: #2196F3; color:#fff; }
-      .status-badge.s-obsluzony { background: #2E7D32; color:#fff; }
-      .status-badge.s-nie_odbiera { background: #FB8C00; color:#fff; }
-      .status-badge.s-odrzucony { background: #D32F2F; color:#fff; }
-      .status-badge.s-porzucony { background: #9E9E9E; color:#fff; }
-      
-      /* ===== LOADER / MODAL ===== */
-      .loader-box { max-width: 640px; width: 100%; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,.2); }
-
-      .multiselect-btn {
-          background: #fff !important;
-          box-shadow: none !important;
-          border: 1px solid #ddd !important;
-          border-radius: 8px !important;
-          font-weight: 500;
-      }
-      
-      .multiselect-btn:hover {
-          background: #f9fafb;
-          transform: none;
-      }
-   </style>
-</head>
-<body>
-   <div class="wrapper" id="app">
-      <div class="content" style="text-align:center; min-height:200px;"></div>
-   </div>
-   
-   <div id="loader" class="loader hidden">
-      <div class="loader-box">
-         <div class="spinner"></div>
-         <div class="loader-text">Ładowanie...</div>
+         }
+         #previewContent,
+         #previewContent p {
+         text-align: left;
+         }
+         .modal-preview-box .btn-back {
+         top: 50%;
+         left: 12px;
+         }
+         .btn-details {
+         padding: 8px 14px;
+         font-size: 13px;
+         min-height: 36px;
+         }
+         .load-more-wrapper {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         padding: 24px 0;
+         }
+         #loadMoreBtn {
+         margin: 0 auto;
+         }
+         .btn-tool,
+         .btn-modal {
+         background: linear-gradient(135deg, #ffffff, #f3f4f6);
+         border: 1px solid rgba(0,0,0,0.08);
+         border-radius: 12px;
+         color: #333;
+         font-weight: 600;
+         box-shadow:
+         0 6px 14px rgba(0,0,0,.08),
+         inset 0 0 0 1px rgba(255,255,255,.6);
+         transition:
+         transform .18s ease,
+         box-shadow .18s ease,
+         background .18s ease;
+         }
+         .btn-tool:hover,
+         .btn-modal:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 14px 28px rgba(0,0,0,.16);
+         }
+         /* PRIMARY */
+         .btn-tool.btn-apply {
+         background: linear-gradient(135deg, #2563eb, #1e40af);
+         color: #fff;
+         border: none;
+         }
+         /* CONFIRM */
+         .btn-modal.obs {
+         background: linear-gradient(135deg, #43a047, #2e7d32);
+         }
+         /* CANCEL / CLOSE */
+         .btn-modal.close-btn {
+         background: linear-gradient(135deg, #9e9e9e, #616161);
+         color: #fff;
+         }
+         /* ===== HEADER & MODAL ===== */
+         .header {
+         background: linear-gradient(135deg, #00bcd4, #9c27b0);
+         color: #fff;
+         position: relative;
+         padding: 24px 20px;
+         text-align: center;
+         }
+         .modal-preview-box .header {
+         background: linear-gradient(135deg, rgba(0,188,212,0.85), rgba(156,39,176,0.85));
+         }
+         .btn-back {
+         position: absolute;
+         left: 12px;
+         top: 50%;
+         transform: translateY(-50%);
+         display: inline-flex;
+         align-items: center;
+         gap: 6px;
+         padding: 8px 14px;
+         border-radius: 999px;
+         background: rgba(0,0,0,0.25);
+         color: #fff;
+         border: 1px solid rgba(255,255,255,0.35);
+         font-size: 13px;
+         font-weight: 600;
+         cursor: pointer;
+         backdrop-filter: blur(8px);
+         box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+         transition: all 0.2s ease;
+         min-height: 36px;
+         }
+         .btn-back::before { content:"←"; font-size:16px; display:inline-block; }
+         .btn-back span { display:inline; }
+         @media (max-width: 768px) {
+         .btn-back span { display:none; }
+         .btn-back { padding:6px 10px; font-size:12px; }
+         }
+         .btn-back:hover {
+         background: rgba(0,0,0,0.35);
+         transform: translateY(-50%) translateX(-3px);
+         }
+         /* ===== STATUS BUTTONS ===== */
+         .buttons.status-buttons {
+         margin-top: 24px;
+         }
+         .buttons.status-buttons a {
+         position: relative;
+         flex: 1;
+         min-width: 160px;
+         padding: 16px 18px;
+         border-radius: 14px;
+         font-weight: 600;
+         letter-spacing: .2px;
+         opacity: 1;
+         filter: none;
+         background: #f4f4f4;
+         box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+         transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+         }
+         .buttons.status-buttons a:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 10px 18px rgba(0,0,0,.12);
+         }
+         .buttons.status-buttons a.active {
+         color: #fff;
+         box-shadow: 0 4px 12px rgba(0,0,0,.25), 0 0 0 2px rgba(255,255,255,.15);
+         transform: translateY(-1px);
+         border: 1px solid rgba(255,255,255,0.3);
+         }
+         /* Gradienty statusów */
+         .buttons.status-buttons a.obs { background: linear-gradient(135deg, #43a047, #2e7d32); }
+         .buttons.status-buttons a.nie { background: linear-gradient(135deg, #fb8c00, #ef6c00); }
+         .buttons.status-buttons a.odrz { background: linear-gradient(135deg, #e53935, #b71c1c); }
+         /* Nieaktywne */
+         .buttons.status-buttons a:not(.active) { opacity: .65; filter: grayscale(25%); }
+         .buttons.status-buttons.disabled a { pointer-events:none; opacity:.35; filter: grayscale(80%); }
+         /* MOBILE */
+         @media (max-width: 768px) {
+         .buttons.status-buttons a {
+         min-width: 100%;
+         }
+         }
+         /* ===== TABELA vs KARTY ===== */
+         @media (max-width: 1000px) {
+         .table-scroll { display: none; }
+         .card-view { display: block; }
+         }
+         @media (min-width: 1001px) {
+         .table-scroll { display: block; }
+         .card-view { display: none; }
+         }
+         /* ===== GRADIENTY KONTRAST ===== */
+         .status-badge.s-nowy { background: #2196F3; color:#fff; }
+         .status-badge.s-obsluzony { background: #2E7D32; color:#fff; }
+         .status-badge.s-nie_odbiera { background: #FB8C00; color:#fff; }
+         .status-badge.s-odrzucony { background: #D32F2F; color:#fff; }
+         .status-badge.s-porzucony { background: #9E9E9E; color:#fff; }
+         /* ===== LOADER / MODAL ===== */
+         .loader-box { max-width: 640px; width: 100%; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,.2); }
+         .multiselect-btn {
+         background: #fff !important;
+         box-shadow: none !important;
+         border: 1px solid #ddd !important;
+         border-radius: 8px !important;
+         font-weight: 500;
+         }
+         .multiselect-btn:hover {
+         background: #f9fafb;
+         transform: none;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="wrapper" id="app">
+         <div class="content" style="text-align:center; min-height:200px;"></div>
       </div>
-   </div>
-   
-   <div id="confirmModal" class="loader hidden">
-      <div class="loader-box">
-         <div class="confirm-modal-content">
-            <div class="confirm-icon">⚠️</div>
-            <div class="confirm-title">Potwierdź zmianę statusu</div>
-            <div class="confirm-message" id="confirmMsg"></div>
-            <div class="confirm-buttons">
-               <button class="btn-modal obs" id="confirmYes">✓ Potwierdź</button>
-               <button class="btn-modal close-btn" id="confirmNo">✕ Anuluj</button>
+      <div id="loader" class="loader hidden">
+         <div class="loader-box">
+            <div class="spinner"></div>
+            <div class="loader-text">Ładowanie...</div>
+         </div>
+      </div>
+      <div id="confirmModal" class="loader hidden">
+         <div class="loader-box">
+            <div class="confirm-modal-content">
+               <div class="confirm-icon">⚠️</div>
+               <div class="confirm-title">Potwierdź zmianę statusu</div>
+               <div class="confirm-message" id="confirmMsg"></div>
+               <div class="confirm-buttons">
+                  <button class="btn-modal obs" id="confirmYes">✓ Potwierdź</button>
+                  <button class="btn-modal close-btn" id="confirmNo">✕ Anuluj</button>
+               </div>
             </div>
          </div>
       </div>
-   </div>
-   
-   <div id="previewModal" class="loader hidden" onclick="closePreview(event)">
-      <div class="loader-box modal-preview-box" onclick="event.stopPropagation()">
-         <div class="header">
-            <button class="btn-back" onclick="closePreview()">
+      <div id="previewModal" class="loader hidden" onclick="closePreview(event)">
+         <div class="loader-box modal-preview-box" onclick="event.stopPropagation()">
+            <div class="header">
+               <button class="btn-back" onclick="closePreview()">
                <span>Powrót</span>
-            </button>
-            <h2>Szczegóły leada</h2>
+               </button>
+               <h2>Szczegóły leada</h2>
+            </div>
+            <div class="content" id="previewContent"></div>
          </div>
-         <div class="content" id="previewContent"></div>
       </div>
-   </div>
-   
-   <script>
-      // ====== BEZPIECZEŃSTWO - XSS PROTECTION ======
-      function escapeHtml(text) {
-          if (!text) return '-';
-          const div = document.createElement('div');
-          div.textContent = String(text);
-          return div.innerHTML;
-      }
-      
-      // ====== ZUNIFIKOWANA FUNKCJA DLA HEADERA ======
-      function renderLeadHeader(lead) {
-          return `
-              <div class="lead-header">
-                  <div class="lead-header-left">
-                      <div class="lead-id">🆔 ID: ${escapeHtml(lead.id)}</div>
-                      <div class="lead-date">📅 ${formatDate(lead.created || lead.date)}</div>
-                      ${lead.campaign ? `<div class="lead-campaign">📢 ${escapeHtml(lead.campaign)}</div>` : ''}
-                  </div>
-                  <div class="lead-header-right">
-                      <span class="status-badge ${statusClass(lead.status || lead.statusKey)}">${escapeHtml(lead.status || 'Nowy')}</span>
-                      <div class="lead-updated">Aktualizacja:<br>${formatDate(lead.updated)}</div>
-                  </div>
-              </div>
-          `;
-      }
+      <script>
+         // ====== BEZPIECZEŃSTWO - XSS PROTECTION ======
+         function escapeHtml(text) {
+             if (!text) return '-';
+             const div = document.createElement('div');
+             div.textContent = String(text);
+             return div.innerHTML;
+         }
          
-      const API_URL = "https://script.google.com/macros/s/AKfycbzKRhMb-C2ZXgMuDdn9tPNpKez9WpxtzPYsi1r_hU_uF8ZZuJBNJkcEJm5Epg43elll/exec";
-      
-      const params = new URLSearchParams(window.location.search);
-      const row = params.get("row");
-      const token = params.get("token");
-      const key = params.get("key");
-      
-      let allLeadsMap = new Map();
-      let currentTotal = 0;
-      let dashboardOffset = 0;
-      let dashboardSort = "desc";
-      let currentLeadStatus = "nowy";
-      let initialFiltersState = null;
-      
-      // ====== API ======
-      async function apiCall(body) {
-        if (!key) throw new Error("Brak klucza dostępu");
-        
-        try {
-          const res = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "text/plain" },
-            body: JSON.stringify({ key, ...body })
-          });
-          const data = await res.json();
-          
-          if (!data.success && data.error && data.error.includes('Za dużo zapytań')) {
-            showError('⏱️ Za dużo zapytań. Odczekaj chwilę i spróbuj ponownie.');
-            return null;
-          }
-          
-          return data;
-        } catch (err) {
-          throw new Error("Błąd połączenia: " + err.message);
-        }
-      }
-      
-      // ====== SINGLE LEAD ======
-      async function loadSingle() {
-          document.body.classList.remove("dashboard-mode");
-          showLoader("Pobieranie...");
-          
-          try {
-              const d = await apiCall({ action: 'single', row, token });
-              hideLoader();
-              if (!d) return;
-              if(d.success) {
-                  currentLeadStatus = String(d.lead.statusKey || "nowy");
-                  renderSingle(d.lead);
-              } else {
-                  showError("Błąd: " + (d.error || "Brak dostępu"));
-              }
-          } catch(err) {
-              hideLoader();
-              showError("Błąd połączenia: " + err.message);
-          }
-      }
-      
-      function renderSingle(lead) {
-          app.innerHTML = `
-              <div class="header">
-                  <button class="btn-back" onclick="goToDashboard()"><span>Dashboard</span></button>
-                  <h2>Status kontaktu</h2>
-              </div>
-              <div class="content">
-                  <div class="box">
-                      ${renderLeadHeader(lead)}
-                  </div>
-                  <div class="box data">
-                      <p><strong>🧾 Pacjent:</strong> ${escapeHtml(lead.name)}</p>
-                      <p><strong>📞 Telefon:</strong> ${formatPhone(lead.phone)}</p>
-                      <p><strong>✉️ Email:</strong> ${escapeHtml(lead.email)}</p>
-                      <p><strong>⏱️ Czas kontaktu:</strong> ${calculateWaitTimes(lead.date, lead.lastUpdate, lead.waitUntil, lead.statusKey)}</p>
-                      <p><strong>📢 Kampania:</strong> ${escapeHtml(lead.campaign)}</p>
-                      <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
-                      <p><strong>🦷 Cel:</strong> ${escapeHtml(lead.info1)}</p>
-                      <p><strong>📝 Info:</strong> ${escapeHtml(lead.info2)}</p>
-                  </div>
-                  <div class="buttons status-buttons ${lead.canEdit ? "" : "disabled"}">
-                      <a class="obs ${lead.statusKey === 'obsluzony' ? 'active' : ''}" onclick="handleStatusClick('obsluzony')">✔ Obsłużony</a>
-                      <a class="nie ${lead.statusKey === 'nie_odbiera' ? 'active' : ''}" onclick="handleStatusClick('nie_odbiera')">📞 Nie odbiera</a>
-                      <a class="odrz ${lead.statusKey === 'odrzucony' ? 'active' : ''}" onclick="handleStatusClick('odrzucony')">❌ Odrzucony</a>
-                  </div>
-                  ${!lead.canEdit ? '<p class="muted" style="text-align:center; color:#f44336; font-weight:bold; margin-top:20px;">⛔ Edycja zablokowana</p>' : ''}
-              </div>
-          `;
-         updateStatusButtonsOpacity(lead);
-      }
-      
-      // ====== DASHBOARD ======
-      function renderListLayout() {
-          document.body.classList.add("dashboard-mode");
-          app.innerHTML = `
-              <div class="header">
-                  <h2>📊 Dashboard leadów</h2>
-              </div>
-              <div class="content">
-                  <div class="dashboard-toolbar">
-                      <div class="multiselect">
-                          <div class="multiselect-btn" onclick="toggleDropdown('statusList')">
-                              <span>📌 Statusy</span><span>▼</span>
-                          </div>
-                          <div class="multiselect-content" id="statusList">
-                              <label><input type="checkbox" value="nowy"> Nowy</label>
-                              <label><input type="checkbox" value="obsluzony"> Obsłużony</label>
-                              <label><input type="checkbox" value="nie_odbiera"> Nie odbiera</label>
-                              <label><input type="checkbox" value="odrzucony"> Odrzucony</label>
-                              <label><input type="checkbox" value="porzucony"> Porzucony</label>
-                          </div>
-                      </div>
-                  
-                      <div class="multiselect">
-                          <div class="multiselect-btn" onclick="toggleDropdown('campList')">
-                              <span>📢 Kampanie</span><span>▼</span>
-                          </div>
-                          <div class="multiselect-content" id="campList">
-                              <div style="padding:10px; color:#888;">Ładowanie...</div>
-                          </div>
-                      </div>
-                      
-                      <div class="date-group">
-                          <label for="dateFrom">Od:</label>
-                          <input type="date" id="dateFrom">
-                      </div>
-                      <div class="date-group">
-                          <label for="dateTo">Do:</label>
-                          <input type="date" id="dateTo">
-                      </div>
-                      
-                      <button onclick="loadDashboard(true)" class="btn-tool btn-apply">🔍 Zastosuj</button>
-                      <button onclick="toggleSort()" id="sortBtn" class="btn-tool">📅 Najnowsze</button>
-                      <button onclick="clearFilters()" id="clearBtn" class="btn-tool disabled">🧹 Wyczyść</button>
-                  </div>
-      
-                  <div class="table-scroll">
-                      <table class="dashboard-table">
-                          <thead>
-                              <tr>
-                                  <th>ID</th><th>Data</th><th>Pacjent</th><th>Status</th><th>Aktualizacja</th><th>Czas</th><th>Kampania</th><th>Akcja</th>
-                              </tr>
-                          </thead>
-                          <tbody id="tableBody"></tbody>
-                      </table>
-                  </div>
-                  
-                  <div class="card-view" id="cardView"></div>
-                  
-                  <div class="load-more-wrapper">
-                      <button id="loadMoreBtn" onclick="loadDashboard(false)" class="btn-tool">
-                          Załaduj więcej
-                      </button>
-                  </div>
-              </div>
-          `;
-         fetchCampaigns();
-         setTimeout(() => {
+         // ====== ZUNIFIKOWANA FUNKCJA DLA HEADERA ======
+         function renderLeadHeader(lead) {
+             return `
+                 <div class="lead-header">
+                     <div class="lead-header-left">
+                         <div class="lead-id">🆔 ID: ${escapeHtml(lead.id)}</div>
+                         <div class="lead-date">📅 ${formatDate(lead.created || lead.date)}</div>
+                         ${lead.campaign ? `<div class="lead-campaign">📢 ${escapeHtml(lead.campaign)}</div>` : ''}
+                     </div>
+                     <div class="lead-header-right">
+                         <span class="status-badge ${statusClass(lead.status || lead.statusKey)}">${escapeHtml(lead.status || 'Nowy')}</span>
+                         <div class="lead-updated">Aktualizacja:<br>${formatDate(lead.updated)}</div>
+                     </div>
+                 </div>
+             `;
+         }
+            
+         const API_URL = "https://script.google.com/macros/s/AKfycbzKRhMb-C2ZXgMuDdn9tPNpKez9WpxtzPYsi1r_hU_uF8ZZuJBNJkcEJm5Epg43elll/exec";
+         
+         const params = new URLSearchParams(window.location.search);
+         const row = params.get("row");
+         const token = params.get("token");
+         const key = params.get("key");
+         
+         let allLeadsMap = new Map();
+         let currentTotal = 0;
+         let dashboardOffset = 0;
+         let dashboardSort = "desc";
+         let currentLeadStatus = "nowy";
+         let initialFiltersState = null;
+         
+         // ====== API ======
+         async function apiCall(body) {
+           if (!key) throw new Error("Brak klucza dostępu");
+           
+           try {
+             const res = await fetch(API_URL, {
+               method: "POST",
+               headers: { "Content-Type": "text/plain" },
+               body: JSON.stringify({ key, ...body })
+             });
+             const data = await res.json();
+             
+             if (!data.success && data.error && data.error.includes('Za dużo zapytań')) {
+               showError('⏱️ Za dużo zapytań. Odczekaj chwilę i spróbuj ponownie.');
+               return null;
+             }
+             
+             return data;
+           } catch (err) {
+             throw new Error("Błąd połączenia: " + err.message);
+           }
+         }
+         
+         // ====== SINGLE LEAD ======
+         async function loadSingle() {
+             document.body.classList.remove("dashboard-mode");
+             showLoader("Pobieranie...");
+             
+             try {
+                 const d = await apiCall({ action: 'single', row, token });
+                 hideLoader();
+                 if (!d) return;
+                 if(d.success) {
+                     currentLeadStatus = String(d.lead.statusKey || "nowy");
+                     renderSingle(d.lead);
+                 } else {
+                     showError("Błąd: " + (d.error || "Brak dostępu"));
+                 }
+             } catch(err) {
+                 hideLoader();
+                 showError("Błąd połączenia: " + err.message);
+             }
+         }
+         
+         function renderSingle(lead) {
+             app.innerHTML = `
+                 <div class="header">
+                     <button class="btn-back" onclick="goToDashboard()"><span>Dashboard</span></button>
+                     <h2>Status kontaktu</h2>
+                 </div>
+                 <div class="content">
+                     <div class="box">
+                         ${renderLeadHeader(lead)}
+                     </div>
+                     <div class="box data">
+                         <p><strong>🧾 Pacjent:</strong> ${escapeHtml(lead.name)}</p>
+                         <p><strong>📞 Telefon:</strong> ${formatPhone(lead.phone)}</p>
+                         <p><strong>✉️ Email:</strong> ${escapeHtml(lead.email)}</p>
+                         <p><strong>⏱️ Czas kontaktu:</strong> ${calculateWaitTimes(lead.date, lead.lastUpdate, lead.waitUntil, lead.statusKey)}</p>
+                         <p><strong>📢 Kampania:</strong> ${escapeHtml(lead.campaign)}</p>
+                         <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+                         <p><strong>🦷 Cel:</strong> ${escapeHtml(lead.info1)}</p>
+                         <p><strong>📝 Info:</strong> ${escapeHtml(lead.info2)}</p>
+                     </div>
+                     <div class="buttons status-buttons ${lead.canEdit ? "" : "disabled"}">
+                         <a class="obs ${lead.statusKey === 'obsluzony' ? 'active' : ''}" onclick="handleStatusClick('obsluzony')">✔ Obsłużony</a>
+                         <a class="nie ${lead.statusKey === 'nie_odbiera' ? 'active' : ''}" onclick="handleStatusClick('nie_odbiera')">📞 Nie odbiera</a>
+                         <a class="odrz ${lead.statusKey === 'odrzucony' ? 'active' : ''}" onclick="handleStatusClick('odrzucony')">❌ Odrzucony</a>
+                     </div>
+                     ${!lead.canEdit ? '<p class="muted" style="text-align:center; color:#f44336; font-weight:bold; margin-top:20px;">⛔ Edycja zablokowana</p>' : ''}
+                 </div>
+             `;
+            updateStatusButtonsOpacity(lead);
+         }
+         
+         // ====== DASHBOARD ======
+         function renderListLayout() {
+             document.body.classList.add("dashboard-mode");
+             app.innerHTML = `
+                 <div class="header">
+                     <h2>📊 Dashboard leadów</h2>
+                 </div>
+                 <div class="content">
+                     <div class="dashboard-toolbar">
+                         <div class="multiselect">
+                             <div class="multiselect-btn" onclick="toggleDropdown('statusList')">
+                                 <span>📌 Statusy</span><span>▼</span>
+                             </div>
+                             <div class="multiselect-content" id="statusList">
+                                 <label><input type="checkbox" value="nowy"> Nowy</label>
+                                 <label><input type="checkbox" value="obsluzony"> Obsłużony</label>
+                                 <label><input type="checkbox" value="nie_odbiera"> Nie odbiera</label>
+                                 <label><input type="checkbox" value="odrzucony"> Odrzucony</label>
+                                 <label><input type="checkbox" value="porzucony"> Porzucony</label>
+                             </div>
+                         </div>
+                     
+                         <div class="multiselect">
+                             <div class="multiselect-btn" onclick="toggleDropdown('campList')">
+                                 <span>📢 Kampanie</span><span>▼</span>
+                             </div>
+                             <div class="multiselect-content" id="campList">
+                                 <div style="padding:10px; color:#888;">Ładowanie...</div>
+                             </div>
+                         </div>
+                         
+                         <div class="date-group">
+                             <label for="dateFrom">Od:</label>
+                             <input type="date" id="dateFrom">
+                         </div>
+                         <div class="date-group">
+                             <label for="dateTo">Do:</label>
+                             <input type="date" id="dateTo">
+                         </div>
+                         
+                         <button onclick="loadDashboard(true)" class="btn-tool btn-apply">🔍 Zastosuj</button>
+                         <button onclick="toggleSort()" id="sortBtn" class="btn-tool">📅 Najnowsze</button>
+                         <button onclick="clearFilters()" id="clearBtn" class="btn-tool disabled">🧹 Wyczyść</button>
+                     </div>
+         
+                     <div class="table-scroll">
+                         <table class="dashboard-table">
+                             <thead>
+                                 <tr>
+                                     <th>ID</th><th>Data</th><th>Pacjent</th><th>Status</th><th>Aktualizacja</th><th>Czas</th><th>Kampania</th><th>Akcja</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="tableBody"></tbody>
+                         </table>
+                     </div>
+                     
+                     <div class="card-view" id="cardView"></div>
+                     
+                     <div class="load-more-wrapper">
+                         <button id="loadMoreBtn" onclick="loadDashboard(false)" class="btn-tool">
+                             Załaduj więcej
+                         </button>
+                     </div>
+                 </div>
+             `;
+            fetchCampaigns();
+            setTimeout(() => {
+                initialFiltersState = getFiltersState();
+                updateClearButtonState();
+            }, 0);
+         }
+         
+         function toggleDropdown(id) {
+             const el = document.getElementById(id);
+             const isShow = el.classList.contains("show");
+             document.querySelectorAll('.multiselect-content').forEach(c => c.classList.remove('show'));
+             if(!isShow) el.classList.add("show");
+         }
+         
+         async function fetchCampaigns() {
+             try {
+                 const d = await apiCall({ action: 'campaigns' });
+                 if (!d) return;
+                 const c = document.getElementById("campList");
+                 c.innerHTML = (d.success && d.campaigns) 
+                     ? d.campaigns.map(name => `<label><input type="checkbox" value="${escapeHtml(name)}"> ${escapeHtml(name)}</label>`).join("")
+                     : '<div style="padding:10px; color:#888;">Brak kampanii</div>';
+             } catch(err) {
+                 document.getElementById("campList").innerHTML = '<div style="padding:10px; color:#f44;">Błąd</div>';
+             }
+         }
+         
+         async function loadDashboard(reset = true) {
+             if (reset) {
+                 dashboardOffset = 0;
+                 allLeadsMap.clear();
+                 document.getElementById("tableBody").innerHTML = "";
+                 document.getElementById("cardView").innerHTML = "";
+             }
+             showLoader("Pobieranie...");
+         
+             try {
+                 const d = await apiCall({
+                     action: 'list',
+                     limit: 50,
+                     offset: dashboardOffset,
+                     sort: dashboardSort,
+                     dateFrom: document.getElementById("dateFrom").value,
+                     dateTo: document.getElementById("dateTo").value,
+                     status: Array.from(document.querySelectorAll('#statusList input:checked')).map(cb => cb.value).join(","),
+                     campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).join(",")
+                 });
+                 
+                 hideLoader();
+                 if (!d) return;
+                 if (!d.success) return alert("Błąd: " + (d.error || "Nieznany"));
+                 
+                 currentTotal = d.total; 
+                 d.rows.forEach(r => allLeadsMap.set(String(r.id), r));
+                 dashboardOffset += d.rows.length;
+                 displayData();
+                 document.getElementById("loadMoreBtn").style.display = (allLeadsMap.size < currentTotal) ? "block" : "none";
+             } catch(err) {
+                 hideLoader();
+                 alert("Błąd: " + err.message);
+             }
+         }
+         
+         function displayData() {
+             let list = Array.from(allLeadsMap.values()).sort((a, b) => {
+                 const diff = parseInt(b.id) - parseInt(a.id);
+                 return dashboardSort === "desc" ? diff : -diff;
+             });
+         
+             // Table
+             document.getElementById("tableBody").innerHTML = list.map(r => `
+                 <tr>
+                     <td>${escapeHtml(r.id)}</td>
+                     <td>${formatDate(r.created)}</td>
+                     <td>
+                         <strong>${escapeHtml(r.name)}</strong><br>
+                         <small class="muted">📞 ${formatPhone(r.phone)}</small><br>
+                         <small class="muted">✉️ ${escapeHtml(r.email)}</small>
+                     </td>
+                     <td><span class="status-badge ${statusClass(r.status)}">${escapeHtml(r.status)}</span></td>
+                     <td>${formatDate(r.updated)}</td>
+                     <td>${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</td>
+                     <td>${escapeHtml(r.campaign)}</td>
+                     <td><button class="btn-tool btn-details" onclick="openPreview('${escapeHtml(r.id)}')">🔍 Szczegóły</button></td>
+                 </tr>
+             `).join("");
+             
+             // Cards - UŻYWAMY TEJ SAMEJ FUNKCJI renderLeadHeader
+             document.getElementById("cardView").innerHTML = list.map(r => `
+                <div class="lead-card">
+                    ${renderLeadHeader(r)}
+                    <div class="lead-card-info">
+                        <p><strong>🧾 ${escapeHtml(r.name)}</strong></p>
+                        <p><strong>📞 Nr. Tel:</strong> ${formatPhone(r.phone)}</p>
+                        <p><strong>✉️ Mail:</strong> ${escapeHtml(r.email)}</p>
+                        <p><strong>⏱️ Czas kontaktu:</strong> ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
+                        <p><strong>📢 Kampania:</strong> ${escapeHtml(r.campaign)}</p>
+                    </div>
+                    <div class="lead-card-actions">
+                        <button class="btn-tool" onclick="openPreview('${escapeHtml(r.id)}')" style="width: 100%;">Szczegóły</button>
+                    </div>
+                </div>
+            `).join("");
+         }
+         
+         function toggleSort() {
+             dashboardSort = dashboardSort === "desc" ? "asc" : "desc";
+             document.getElementById("sortBtn").innerText = dashboardSort === "desc" ? "📅 Najnowsze" : "📅 Najstarsze";
+             loadDashboard(true);
+         }
+         
+         function clearFilters() {
+             document.getElementById("dateFrom").value = "";
+             document.getElementById("dateTo").value = "";
+             document.querySelectorAll('.multiselect-content input').forEach(cb => cb.checked = false);
+         
+             loadDashboard(true);
+         
+             // po wyczyszczeniu wracamy do stanu bazowego
              initialFiltersState = getFiltersState();
              updateClearButtonState();
-         }, 0);
-      }
-      
-      function toggleDropdown(id) {
-          const el = document.getElementById(id);
-          const isShow = el.classList.contains("show");
-          document.querySelectorAll('.multiselect-content').forEach(c => c.classList.remove('show'));
-          if(!isShow) el.classList.add("show");
-      }
-      
-      async function fetchCampaigns() {
-          try {
-              const d = await apiCall({ action: 'campaigns' });
-              if (!d) return;
-              const c = document.getElementById("campList");
-              c.innerHTML = (d.success && d.campaigns) 
-                  ? d.campaigns.map(name => `<label><input type="checkbox" value="${escapeHtml(name)}"> ${escapeHtml(name)}</label>`).join("")
-                  : '<div style="padding:10px; color:#888;">Brak kampanii</div>';
-          } catch(err) {
-              document.getElementById("campList").innerHTML = '<div style="padding:10px; color:#f44;">Błąd</div>';
-          }
-      }
-      
-      async function loadDashboard(reset = true) {
-          if (reset) {
-              dashboardOffset = 0;
-              allLeadsMap.clear();
-              document.getElementById("tableBody").innerHTML = "";
-              document.getElementById("cardView").innerHTML = "";
-          }
-          showLoader("Pobieranie...");
-      
-          try {
-              const d = await apiCall({
-                  action: 'list',
-                  limit: 50,
-                  offset: dashboardOffset,
-                  sort: dashboardSort,
-                  dateFrom: document.getElementById("dateFrom").value,
-                  dateTo: document.getElementById("dateTo").value,
-                  status: Array.from(document.querySelectorAll('#statusList input:checked')).map(cb => cb.value).join(","),
-                  campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).join(",")
-              });
-              
-              hideLoader();
-              if (!d) return;
-              if (!d.success) return alert("Błąd: " + (d.error || "Nieznany"));
-              
-              currentTotal = d.total; 
-              d.rows.forEach(r => allLeadsMap.set(String(r.id), r));
-              dashboardOffset += d.rows.length;
-              displayData();
-              document.getElementById("loadMoreBtn").style.display = (allLeadsMap.size < currentTotal) ? "block" : "none";
-          } catch(err) {
-              hideLoader();
-              alert("Błąd: " + err.message);
-          }
-      }
-      
-      function displayData() {
-          let list = Array.from(allLeadsMap.values()).sort((a, b) => {
-              const diff = parseInt(b.id) - parseInt(a.id);
-              return dashboardSort === "desc" ? diff : -diff;
-          });
-      
-          // Table
-          document.getElementById("tableBody").innerHTML = list.map(r => `
-              <tr>
-                  <td>${escapeHtml(r.id)}</td>
-                  <td>${formatDate(r.created)}</td>
-                  <td>
-                      <strong>${escapeHtml(r.name)}</strong><br>
-                      <small class="muted">📞 ${formatPhone(r.phone)}</small><br>
-                      <small class="muted">✉️ ${escapeHtml(r.email)}</small>
-                  </td>
-                  <td><span class="status-badge ${statusClass(r.status)}">${escapeHtml(r.status)}</span></td>
-                  <td>${formatDate(r.updated)}</td>
-                  <td>${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</td>
-                  <td>${escapeHtml(r.campaign)}</td>
-                  <td><button class="btn-tool btn-details" onclick="openPreview('${escapeHtml(r.id)}')">🔍 Szczegóły</button></td>
-              </tr>
-          `).join("");
-          
-          // Cards - UŻYWAMY TEJ SAMEJ FUNKCJI renderLeadHeader
-          document.getElementById("cardView").innerHTML = list.map(r => `
-             <div class="lead-card">
-                 ${renderLeadHeader(r)}
-                 <div class="lead-card-info">
-                     <p><strong>🧾 ${escapeHtml(r.name)}</strong></p>
-                     <p><strong>📞 Nr. Tel:</strong> ${formatPhone(r.phone)}</p>
-                     <p><strong>✉️ Mail:</strong> ${escapeHtml(r.email)}</p>
-                     <p><strong>⏱️ Czas kontaktu:</strong> ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
+         }
+         
+         function openPreview(id) {
+             const r = allLeadsMap.get(String(id));
+             if(!r) return;
+         
+             // UŻYWAMY TEJ SAMEJ FUNKCJI renderLeadHeader
+             document.getElementById("previewContent").innerHTML = `
+                 <div class="box">
+                     ${renderLeadHeader(r)}
+                 </div>
+                 <div class="box data">
+                     <p><strong>🧾 Pacjent:</strong> ${escapeHtml(r.name)}</p>
+                     <p><strong>📞 Telefon:</strong> ${formatPhone(r.phone)}</p>
+                     <p><strong>✉️ Email:</strong> ${escapeHtml(r.email)}</p>
+                     <p><strong>⏱️ Czas:</strong> ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
                      <p><strong>📢 Kampania:</strong> ${escapeHtml(r.campaign)}</p>
-                 </div>
-                 <div class="lead-card-actions">
-                     <button class="btn-tool" onclick="openPreview('${escapeHtml(r.id)}')" style="width: 100%;">Szczegóły</button>
-                 </div>
-             </div>
-         `).join("");
-      }
-      
-      function toggleSort() {
-          dashboardSort = dashboardSort === "desc" ? "asc" : "desc";
-          document.getElementById("sortBtn").innerText = dashboardSort === "desc" ? "📅 Najnowsze" : "📅 Najstarsze";
-          loadDashboard(true);
-      }
-      
-      function clearFilters() {
-          document.getElementById("dateFrom").value = "";
-          document.getElementById("dateTo").value = "";
-          document.querySelectorAll('.multiselect-content input').forEach(cb => cb.checked = false);
-      
-          loadDashboard(true);
-      
-          // po wyczyszczeniu wracamy do stanu bazowego
-          initialFiltersState = getFiltersState();
-          updateClearButtonState();
-      }
-      
-      function openPreview(id) {
-          const r = allLeadsMap.get(String(id));
-          if(!r) return;
-      
-          // UŻYWAMY TEJ SAMEJ FUNKCJI renderLeadHeader
-          document.getElementById("previewContent").innerHTML = `
-              <div class="box">
-                  ${renderLeadHeader(r)}
-              </div>
-              <div class="box data">
-                  <p><strong>🧾 Pacjent:</strong> ${escapeHtml(r.name)}</p>
-                  <p><strong>📞 Telefon:</strong> ${formatPhone(r.phone)}</p>
-                  <p><strong>✉️ Email:</strong> ${escapeHtml(r.email)}</p>
-                  <p><strong>⏱️ Czas:</strong> ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
-                  <p><strong>📢 Kampania:</strong> ${escapeHtml(r.campaign)}</p>
-                  <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
-                  <p><strong>🦷 Info 1:</strong> ${escapeHtml(r.info1)}</p>
-                  <p><strong>📝 Info 2:</strong> ${escapeHtml(r.info2)}</p>
-              </div>`;
-          
-          document.getElementById("previewModal").classList.remove("hidden");
-      }
-      
-      function closePreview(e) { 
-          if (e && e.target !== e.currentTarget) return;
-          document.getElementById("previewModal").classList.add("hidden"); 
-      }
-      
-      // ====== STATUS UPDATE ======
-      function handleStatusClick(newS) {
-          if (currentLeadStatus === "nowy") {
-              updateStatus(newS);
-          } else {
-              const statusNames = {
-                  'obsluzony': 'Obsłużony',
-                  'nie_odbiera': 'Nie odbiera', 
-                  'odrzucony': 'Odrzucony'
-              };
-              document.getElementById("confirmMsg").innerHTML = `
-                  Czy na pewno chcesz zmienić status<br>
-                  z <strong>${statusNames[currentLeadStatus] || currentLeadStatus}</strong><br>
-                  na <strong>${statusNames[newS] || newS}</strong>?
-              `;
-              document.getElementById("confirmModal").classList.remove("hidden");
-              document.getElementById("confirmYes").onclick = () => {
-                  document.getElementById("confirmModal").classList.add("hidden");
-                  updateStatus(newS);
-              };
-              document.getElementById("confirmNo").onclick = () => {
-                  document.getElementById("confirmModal").classList.add("hidden");
-              };
-          }
-      }
-      
-      async function updateStatus(s) {
-          showLoader("Zapisywanie...");
-          try {
-              const d = await apiCall({ action: 'update', row, token, status: s });
-              hideLoader();
-              if (!d) return;
-              if (d.success) {
-                  app.innerHTML = '<div class="content" style="text-align:center; padding:50px;"><h2>✅ Zapisano</h2><button class="btn-tool" onclick="location.reload()" style="margin:20px auto;">Wróć</button></div>';
-              } else {
-                  alert("Błąd: " + d.error);
-                  location.reload();
-              }
-          } catch (e) { 
-              hideLoader();
-              alert("Błąd: " + e.message); 
-          }
-      }
-      
-      // ====== HELPERS ======
-      function statusClass(s) {
-          s = String(s || "").toLowerCase();
-          if (s.includes("porzu")) return "s-porzucony";
-          if (s.includes("odrz")) return "s-odrzucony";
-          if (s.includes("nie") && s.includes("odb")) return "s-nie_odbiera";
-          if (s.includes("obs")) return "s-obsluzony";
-          return "s-nowy";
-      }
-      
-      function formatPhone(p) {
-          if (!p) return "-";
-          let d = p.toString().replace(/\D/g, "");
-          if (d.startsWith("48") && d.length === 11) d = d.slice(2);
-          return d.length === 9 ? `+48 ${d.slice(0,3)} ${d.slice(3,6)} ${d.slice(6)}` : p;
-      }
-      
-      function formatDate(dateStr) { 
-          if (!dateStr || dateStr === "-") return "-";
-          try {
-              const [datePart, timePart] = dateStr.split(' ');
-              const [y, m, d] = datePart.split('-');
-              return `${d}.${m}.${y} ${timePart ? timePart.substring(0, 5) : ''}`;
-          } catch { return dateStr; }
-      }
-      
-     function calculateWaitTimes(createdStr, updatedStr, waitUntilStr, status) {
-          if (!createdStr || createdStr === "-") return "-";
-      
-          const parse = (str) => {
-              if (!str || str === "-") return null;
-              const [date, time] = str.split(" ");
-              const [y, mo, d] = date.split("-");
-              const [h, mi] = time ? time.split(":") : [0, 0];
-              return new Date(y, mo - 1, d, h, mi);
-          };
-      
-          const created = parse(createdStr);
-          const updated = parse(updatedStr);
-          const waitUntil = parse(waitUntilStr);
+                     <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+                     <p><strong>🦷 Info 1:</strong> ${escapeHtml(r.info1)}</p>
+                     <p><strong>📝 Info 2:</strong> ${escapeHtml(r.info2)}</p>
+                 </div>`;
+             
+             document.getElementById("previewModal").classList.remove("hidden");
+         }
+         
+         function closePreview(e) { 
+             if (e && e.target !== e.currentTarget) return;
+             document.getElementById("previewModal").classList.add("hidden"); 
+         }
+         
+         // ====== STATUS UPDATE ======
+         function handleStatusClick(newS) {
+             if (currentLeadStatus === "nowy") {
+                 updateStatus(newS);
+             } else {
+                 const statusNames = {
+                     'obsluzony': 'Obsłużony',
+                     'nie_odbiera': 'Nie odbiera', 
+                     'odrzucony': 'Odrzucony'
+                 };
+                 document.getElementById("confirmMsg").innerHTML = `
+                     Czy na pewno chcesz zmienić status<br>
+                     z <strong>${statusNames[currentLeadStatus] || currentLeadStatus}</strong><br>
+                     na <strong>${statusNames[newS] || newS}</strong>?
+                 `;
+                 document.getElementById("confirmModal").classList.remove("hidden");
+                 document.getElementById("confirmYes").onclick = () => {
+                     document.getElementById("confirmModal").classList.add("hidden");
+                     updateStatus(newS);
+                 };
+                 document.getElementById("confirmNo").onclick = () => {
+                     document.getElementById("confirmModal").classList.add("hidden");
+                 };
+             }
+         }
+         
+         async function updateStatus(s) {
+             showLoader("Zapisywanie...");
+             try {
+                 const d = await apiCall({ action: 'update', row, token, status: s });
+                 hideLoader();
+                 if (!d) return;
+                 if (d.success) {
+                     app.innerHTML = '<div class="content" style="text-align:center; padding:50px;"><h2>✅ Zapisano</h2><button class="btn-tool" onclick="location.reload()" style="margin:20px auto;">Wróć</button></div>';
+                 } else {
+                     alert("Błąd: " + d.error);
+                     location.reload();
+                 }
+             } catch (e) { 
+                 hideLoader();
+                 alert("Błąd: " + e.message); 
+             }
+         }
+         
+         // ====== HELPERS ======
+         function statusClass(s) {
+             s = String(s || "").toLowerCase();
+             if (s.includes("porzu")) return "s-porzucony";
+             if (s.includes("odrz")) return "s-odrzucony";
+             if (s.includes("nie") && s.includes("odb")) return "s-nie_odbiera";
+             if (s.includes("obs")) return "s-obsluzony";
+             return "s-nowy";
+         }
+         
+         function formatPhone(p) {
+             if (!p) return "-";
+             let d = p.toString().replace(/\D/g, "");
+             if (d.startsWith("48") && d.length === 11) d = d.slice(2);
+             return d.length === 9 ? `+48 ${d.slice(0,3)} ${d.slice(3,6)} ${d.slice(6)}` : p;
+         }
+         
+         function formatDate(dateStr) { 
+             if (!dateStr || dateStr === "-") return "-";
+             try {
+                 const [datePart, timePart] = dateStr.split(' ');
+                 const [y, m, d] = datePart.split('-');
+                 return `${d}.${m}.${y} ${timePart ? timePart.substring(0, 5) : ''}`;
+             } catch { return dateStr; }
+         }
+         
+         function calculateWaitTimes(createdStr, updatedStr, waitUntilStr, status) {
+             if (!createdStr || createdStr === "-") return "-";
+         
+             const parse = (str) => {
+                 if (!str || str === "-") return null;
+                 const [date, time] = str.split(" ");
+                 const [y, mo, d] = date.split("-");
+                 const [h, mi] = time ? time.split(":") : [0, 0];
+                 return new Date(y, mo - 1, d, h, mi);
+             };
+         
+             const created = parse(createdStr);
+             const updated = parse(updatedStr);
+             const waitUntil = parse(waitUntilStr);
+             const now = new Date();
+         
+             const s = String(status).toLowerCase();
+             const isFinished = ['obs', 'nie_odb', 'odrz', 'porzu'].some(x => s.includes(x));
+             const end = (isFinished && updated) ? updated : now;
+         
+             const rawMins = Math.floor((end - created) / 60000);
+             let workMins = Math.floor((end - (waitUntil > created ? waitUntil : created)) / 60000);
+             if (workMins < 0) workMins = 0;
+         
+             let color = "#2e7d32";
+             if (workMins > 1440) color = "#880e4f";
+             else if (workMins > 120) color = "#d32f2f";
+             else if (workMins > 30) color = "#ef6c00";
+         
+             const fmt = (m) => {
+                 if (m > 2880) return Math.floor(m / 1440) + " dni";
+                 const h = Math.floor(m / 60);
+                 return h > 0 ? `${h}h ${m % 60}m` : `${m}m`;
+             };
+         
+             return `
+                 <span style="font-weight:700; color:${color}">
+                     ${fmt(workMins)}
+                 </span>
+                 <span style="font-size:0.85em; color:#666; margin-left:4px;">
+                     (łącznie: ${fmt(rawMins)})
+                 </span>
+             `;
+         }
+         
+         function goToDashboard() {
+             const url = new URL(window.location.href);
+             url.searchParams.delete("row");
+             url.searchParams.delete("token");
+             window.location.href = url.toString();
+         }
+         
+         function showLoader(t) { 
+             document.querySelector("#loader .loader-text").textContent = t; 
+             document.getElementById("loader").classList.remove("hidden"); 
+         }
+         
+         function hideLoader() { 
+             document.getElementById("loader").classList.add("hidden"); 
+         }
+         
+         function showError(m) { 
+             app.innerHTML = `<div class="content"><h3>⛔ Błąd</h3><p>${m}</p></div>`; 
+         }
+         
+         function getFiltersState() {
+             return {
+                 dateFrom: document.getElementById("dateFrom")?.value || "",
+                 dateTo: document.getElementById("dateTo")?.value || "",
+                 status: Array.from(document.querySelectorAll('#statusList input:checked')).map(cb => cb.value).sort().join(","),
+                 campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).sort().join(",")
+             };
+         }
+         
+         function updateClearButtonState() {
+             const clearBtn = document.getElementById("clearBtn");
+             if (!clearBtn || !initialFiltersState) return;
+         
+             const current = getFiltersState();
+             const changed = JSON.stringify(current) !== JSON.stringify(initialFiltersState);
+         
+             clearBtn.classList.toggle("disabled", !changed);
+         }
+         
+         // ====== INIT ======
+         showLoader("Łączenie z serwerem...");
+         
+         if (row && token) {
+             loadSingle();
+         } else {
+             renderListLayout();
+             loadDashboard(true);
+         }
+         
+         document.addEventListener("click", (e) => {
+             if (!e.target.closest('.multiselect')) {
+                 document.querySelectorAll('.multiselect-content').forEach(el => el.classList.remove('show'));
+             }
+         });
+         
+         function updateStatusButtonsOpacity(lead) {
+          const buttons = document.querySelectorAll('.buttons.status-buttons a');
           const now = new Date();
-      
-          const s = String(status).toLowerCase();
-          const isFinished = ['obs', 'nie_odb', 'odrz', 'porzu'].some(x => s.includes(x));
-          const end = (isFinished && updated) ? updated : now;
-      
-          const rawMins = Math.floor((end - created) / 60000);
-          let workMins = Math.floor((end - (waitUntil > created ? waitUntil : created)) / 60000);
-          if (workMins < 0) workMins = 0;
-      
-          let color = "#2e7d32";
-          if (workMins > 1440) color = "#880e4f";
-          else if (workMins > 120) color = "#d32f2f";
-          else if (workMins > 30) color = "#ef6c00";
-      
-          const fmt = (m) => {
-              if (m > 2880) return Math.floor(m / 1440) + " dni";
-              const h = Math.floor(m / 60);
-              return h > 0 ? `${h}h ${m % 60}m` : `${m}m`;
-          };
-      
-          return `
-              <span style="font-weight:700; color:${color}">
-                  ${fmt(workMins)}
-              </span>
-              <span style="font-size:0.85em; color:#666; margin-left:4px;">
-                  (łącznie: ${fmt(rawMins)})
-              </span>
-          `;
-      }
-      
-      function goToDashboard() {
-          const url = new URL(window.location.href);
-          url.searchParams.delete("row");
-          url.searchParams.delete("token");
-          window.location.href = url.toString();
-      }
-      
-      function showLoader(t) { 
-          document.querySelector("#loader .loader-text").textContent = t; 
-          document.getElementById("loader").classList.remove("hidden"); 
-      }
-      
-      function hideLoader() { 
-          document.getElementById("loader").classList.add("hidden"); 
-      }
-      
-      function showError(m) { 
-          app.innerHTML = `<div class="content"><h3>⛔ Błąd</h3><p>${m}</p></div>`; 
-      }
-
-      function getFiltersState() {
-          return {
-              dateFrom: document.getElementById("dateFrom")?.value || "",
-              dateTo: document.getElementById("dateTo")?.value || "",
-              status: Array.from(document.querySelectorAll('#statusList input:checked')).map(cb => cb.value).sort().join(","),
-              campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).sort().join(",")
-          };
-      }
-
-      function updateClearButtonState() {
-          const clearBtn = document.getElementById("clearBtn");
-          if (!clearBtn || !initialFiltersState) return;
-      
-          const current = getFiltersState();
-          const changed = JSON.stringify(current) !== JSON.stringify(initialFiltersState);
-      
-          clearBtn.classList.toggle("disabled", !changed);
-      }
-      
-      // ====== INIT ======
-      showLoader("Łączenie z serwerem...");
-      
-      if (row && token) {
-          loadSingle();
-      } else {
-          renderListLayout();
-          loadDashboard(true);
-      }
-      
-      document.addEventListener("click", (e) => {
-          if (!e.target.closest('.multiselect')) {
-              document.querySelectorAll('.multiselect-content').forEach(el => el.classList.remove('show'));
-          }
-      });
-
-      function updateStatusButtonsOpacity(lead) {
-       const buttons = document.querySelectorAll('.buttons.status-buttons a');
-       const now = new Date();
-   
-       buttons.forEach(btn => {
-           const key = btn.classList.contains('obs') ? 'obsluzony'
-                     : btn.classList.contains('nie') ? 'nie_odbiera'
-                     : btn.classList.contains('odrz') ? 'odrzucony'
-                     : null;
-   
-           if (!key) return;
-   
-           let muted = false;
-   
-           if (key === 'porzucony') muted = true;
-           else if (key === 'nie_odbiera') muted = false;
-           else if (key === 'nowy') muted = true;
-           else if (key === 'odrzucony' || key === 'obsluzony') {
-               const updated = new Date(lead.lastUpdate || lead.date);
-               const diffMins = (now - updated) / 60000;
-               if (diffMins > 20) muted = true;
-           }
-   
-           if (muted) {
-               btn.style.opacity = 0.65;
-               btn.style.filter = 'grayscale(25%)';
-           } else {
-               btn.style.opacity = 1;
-               btn.style.filter = 'none';
-           }
-       });
-   }
-      document.addEventListener("change", (e) => {
-          if (
-              e.target.matches('#dateFrom, #dateTo') ||
-              e.target.closest('#statusList') ||
-              e.target.closest('#campList')
-          ) {
-              updateClearButtonState();
-          }
-      });
-
-      document.addEventListener("change", (e) => {
-          if (
-              e.target.closest(".dashboard-toolbar")
-          ) {
-              updateClearButtonState();
-          }
-      });
-   </script>
-</body>
+         
+          buttons.forEach(btn => {
+              const key = btn.classList.contains('obs') ? 'obsluzony'
+                        : btn.classList.contains('nie') ? 'nie_odbiera'
+                        : btn.classList.contains('odrz') ? 'odrzucony'
+                        : null;
+         
+              if (!key) return;
+         
+              let muted = false;
+         
+              if (key === 'porzucony') muted = true;
+              else if (key === 'nie_odbiera') muted = false;
+              else if (key === 'nowy') muted = true;
+              else if (key === 'odrzucony' || key === 'obsluzony') {
+                  const updated = new Date(lead.lastUpdate || lead.date);
+                  const diffMins = (now - updated) / 60000;
+                  if (diffMins > 20) muted = true;
+              }
+         
+              if (muted) {
+                  btn.style.opacity = 0.65;
+                  btn.style.filter = 'grayscale(25%)';
+              } else {
+                  btn.style.opacity = 1;
+                  btn.style.filter = 'none';
+              }
+          });
+         }
+         
+         document.addEventListener("change", (e) => {
+             if (e.target.closest(".dashboard-toolbar")) {
+                 updateClearButtonState();
+             }
+         });
+      </script>
+   </body>
 </html>
