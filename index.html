@@ -230,8 +230,13 @@
          padding: 12px 10px; 
          border-bottom: 1px solid #eee; 
       }
-      .dashboard-table th:last-child, 
-      .dashboard-table td:last-child { text-align: center !important; width: 100px; }
+      .dashboard-table th:last-child,
+      .dashboard-table td:last-child {
+          text-align: center !important;
+          min-width: 120px;
+          width: 1%;
+          white-space: nowrap;
+      }
       
       /* Card view */
       .card-view { display: none; }
@@ -394,6 +399,8 @@
          .btn-back span { display: none; }
          .modal-preview-box { width: 98%; max-height: 95vh; }
          .modal-close-x { width: 36px; height: 36px; font-size: 24px; }
+         .status-row { grid-template-columns: 1fr; }
+         .status-row > div:last-child { text-align: left; }
       }
       
       @media (max-width: 480px) {
@@ -483,6 +490,28 @@
           .buttons.status-buttons a {
               min-width: 100%;
           }
+      }
+
+      .btn-details {
+          padding: 8px 14px;
+          font-size: 13px;
+          min-height: 36px;
+      }
+
+      .status-row {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 16px;
+          align-items: start;
+      }
+      
+      .status-row > div:last-child {
+          min-width: 160px;
+          text-align: right;
+      }
+      
+      .status-row .muted {
+          white-space: nowrap;
       }
    </style>
 </head>
@@ -771,7 +800,7 @@
                   <td>${formatDate(r.updated)}</td>
                   <td>${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</td>
                   <td>${escapeHtml(r.campaign)}</td>
-                  <td><button class="btn-tool" onclick="openPreview('${escapeHtml(r.id)}')">Szczegóły</button></td>
+                  <td><button class="btn-tool btn-details" onclick="openPreview('${escapeHtml(r.id)}')">🔍 Szczegóły</button></td>
               </tr>
           `).join("");
           
