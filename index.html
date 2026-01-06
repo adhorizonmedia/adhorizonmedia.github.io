@@ -902,26 +902,29 @@
           
           // Cards
           document.getElementById("cardView").innerHTML = list.map(r => `
-              <div class="lead-card">
-                  <div class="lead-card-header">
-                      <div style="flex: 1;">
-                          <div style="font-weight: bold; font-size: 16px; margin-bottom: 4px;">🆔 ID: ${r.id}</div>
-                          <div class="muted">📅 ${formatDate(r.created)}</div>
-                      </div>
-                      <span class="status-badge ${statusClass(r.status)}">${escapeHtml(r.status)}</span>
-                  </div>
-                  <div class="lead-card-info">
+             <div class="lead-card">
+                 <div class="lead-card-header">
+                     <div style="flex: 1;">
+                         <div style="font-weight: bold; font-size: 16px; margin-bottom: 4px;">🆔 ID: ${r.id}</div>
+                         <div class="muted">📅 ${formatDate(r.created)}</div>
+                     </div>
+                     <div style="text-align:right">
+                         <span class="status-badge ${statusClass(r.status)}">${escapeHtml(r.status)}</span>
+                         <div class="muted" style="margin-top:5px">Aktualizacja:<br>${formatDate(r.updated)}</div>
+                     </div>
+                 </div>
+                 <div class="lead-card-info">
                      <p><strong>🧾 ${escapeHtml(r.name)}</strong></p>
                      <p>📞 ${formatPhone(r.phone)}</p>
                      <p>✉️ ${escapeHtml(r.email)}</p>
                      <p>📢 ${escapeHtml(r.campaign)}</p>
                      <p>⏱️ ${calculateWaitTimes(r.created, r.updated, r.waitUntil, r.status)}</p>
-                  </div>
-                  <div class="lead-card-actions">
-                      <button class="btn-tool" onclick="openPreview('${escapeHtml(r.id)}')" style="width: 100%;">Szczegóły</button>
-                  </div>
-              </div>
-          `).join("");
+                 </div>
+                 <div class="lead-card-actions">
+                     <button class="btn-tool" onclick="openPreview('${escapeHtml(r.id)}')" style="width: 100%;">Szczegóły</button>
+                 </div>
+             </div>
+         `).join("");
       }
       
       function toggleSort() {
