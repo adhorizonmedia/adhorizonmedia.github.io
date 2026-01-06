@@ -5,7 +5,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>AdFlow - System Obsługi Leadów</title>
    <style>
-      <style>
       * { box-sizing: border-box; }
       body { 
          font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
@@ -619,7 +618,7 @@
           div.textContent = String(text);
           return div.innerHTML;
       }
-
+      
       // ====== ZUNIFIKOWANA FUNKCJA DLA HEADERA ======
       function renderLeadHeader(lead) {
           return `
@@ -627,7 +626,6 @@
                   <div class="lead-header-left">
                       <div class="lead-id">🆔 ID: ${escapeHtml(lead.id)}</div>
                       <div class="lead-date">📅 ${formatDate(lead.created || lead.date)}</div>
-                      <p>📢 <strong>Kampania:</strong> ${escapeHtml(lead.campaign)}</p>
                       ${lead.campaign ? `<div class="lead-campaign">📢 ${escapeHtml(lead.campaign)}</div>` : ''}
                   </div>
                   <div class="lead-header-right">
@@ -637,7 +635,7 @@
               </div>
           `;
       }
-      
+         
       const API_URL = "https://script.google.com/macros/s/AKfycbzKRhMb-C2ZXgMuDdn9tPNpKez9WpxtzPYsi1r_hU_uF8ZZuJBNJkcEJm5Epg43elll/exec";
       
       const params = new URLSearchParams(window.location.search);
@@ -1093,13 +1091,13 @@
    
            let muted = false;
    
-           if (key === 'porzucony') muted = true;               // zawsze przyciemniony
-           else if (key === 'nie_odbiera') muted = false;      // nigdy przyciemniony
-           else if (key === 'nowy') muted = true;              // zawsze przyciemniony
+           if (key === 'porzucony') muted = true;
+           else if (key === 'nie_odbiera') muted = false;
+           else if (key === 'nowy') muted = true;
            else if (key === 'odrzucony' || key === 'obsluzony') {
                const updated = new Date(lead.lastUpdate || lead.date);
                const diffMins = (now - updated) / 60000;
-               if (diffMins > 20) muted = true;               // >20 min → przyciemniony
+               if (diffMins > 20) muted = true;
            }
    
            if (muted) {
