@@ -627,6 +627,7 @@
                   <div class="lead-header-left">
                       <div class="lead-id">🆔 ID: ${escapeHtml(lead.id)}</div>
                       <div class="lead-date">📅 ${formatDate(lead.created || lead.date)}</div>
+                      <p>📢 <strong>Kampania:</strong> ${escapeHtml(lead.campaign)}</p>
                       ${lead.campaign ? `<div class="lead-campaign">📢 ${escapeHtml(lead.campaign)}</div>` : ''}
                   </div>
                   <div class="lead-header-right">
