@@ -619,7 +619,24 @@
           div.textContent = String(text);
           return div.innerHTML;
       }
-         
+
+      // ====== ZUNIFIKOWANA FUNKCJA DLA HEADERA ======
+      function renderLeadHeader(lead) {
+          return `
+              <div class="lead-header">
+                  <div class="lead-header-left">
+                      <div class="lead-id">🆔 ID: ${escapeHtml(lead.id)}</div>
+                      <div class="lead-date">📅 ${formatDate(lead.created || lead.date)}</div>
+                      ${lead.campaign ? `<div class="lead-campaign">📢 ${escapeHtml(lead.campaign)}</div>` : ''}
+                  </div>
+                  <div class="lead-header-right">
+                      <span class="status-badge ${statusClass(lead.status || lead.statusKey)}">${escapeHtml(lead.status || 'Nowy')}</span>
+                      <div class="lead-updated">Aktualizacja:<br>${formatDate(lead.updated)}</div>
+                  </div>
+              </div>
+          `;
+      }
+      
       const API_URL = "https://script.google.com/macros/s/AKfycbzKRhMb-C2ZXgMuDdn9tPNpKez9WpxtzPYsi1r_hU_uF8ZZuJBNJkcEJm5Epg43elll/exec";
       
       const params = new URLSearchParams(window.location.search);
@@ -685,17 +702,7 @@
               </div>
               <div class="content">
                   <div class="box">
-                      <div class="status-row">
-                          <div>
-                              <p>🆔 <strong>ID:</strong> ${escapeHtml(lead.id)}</p>
-                              <p>📅 <strong>Zgłoszenie:</strong> ${formatDate(lead.date)}</p>
-                              <p>📢 <strong>Kampania:</strong> ${escapeHtml(lead.campaign)}</p>
-                          </div>
-                          <div style="text-align:right">
-                              <span class="status-badge ${statusClass(lead.statusKey)}">${lead.status}</span>
-                              <div class="muted" style="margin-top:5px">Aktualizacja:<br>${formatDate(lead.updated)}</div>
-                          </div>
-                      </div>
+                      ${renderLeadHeader(lead)}
                   </div>
                   <div class="box data">
                       <p><strong>🧾 Pacjent:</strong> ${escapeHtml(lead.name)}</p>
