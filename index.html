@@ -574,7 +574,7 @@
 </head>
 <body>
    <div class="wrapper" id="app">
-      <div class="content" style="text-align:center;">⏳ Łączenie z serwerem...</div>
+      <div class="content" style="text-align:center; min-height:200px;"></div>
    </div>
    
    <div id="loader" class="loader hidden">
@@ -1066,6 +1066,8 @@
       }
       
       // ====== INIT ======
+      showLoader("Łączenie z serwerem...");
+      
       if (row && token) {
           loadSingle();
       } else {
