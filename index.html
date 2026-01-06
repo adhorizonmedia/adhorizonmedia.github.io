@@ -29,7 +29,8 @@
             color:#fff; 
             padding:24px 20px; 
             text-align:center; 
-            position: relative; 
+            position: relative;
+            position: relative;
          }
          .header h2 { 
             margin:0; 
@@ -146,8 +147,8 @@
          .multiselect { position: relative; min-width: 150px; }
          .multiselect-btn { 
             padding: 12px; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
+            border: 1px solid #ddd !important;
+            border-radius: 8px !important;
             background: #fff; 
             cursor: pointer; 
             font-size: 14px; 
@@ -156,6 +157,9 @@
             justify-content: space-between; 
             align-items: center;
             min-height: 44px;
+            background: #fff !important;
+            box-shadow: none !important;
+            font-weight: 500;
          }
          .multiselect-content { 
             display: none; 
@@ -450,13 +454,6 @@
          }
             
          /* ===== HEADER & MODAL ===== */
-         .header {
-            background: linear-gradient(135deg, #00bcd4, #9c27b0);
-            color: #fff;
-            position: relative;
-            padding: 24px 20px;
-            text-align: center;
-         }
          .modal-preview-box .header {
             background: linear-gradient(135deg, rgba(0,188,212,0.85), rgba(156,39,176,0.85));
          }
@@ -551,13 +548,6 @@
          .status-badge.s-porzucony { background: #9E9E9E; color:#fff; }
          /* ===== LOADER / MODAL ===== */
          .loader-box { max-width: 640px; width: 100%; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,.2); }
-         .multiselect-btn {
-            background: #fff !important;
-            box-shadow: none !important;
-            border: 1px solid #ddd !important;
-            border-radius: 8px !important;
-            font-weight: 500;
-         }
          .multiselect-btn:hover {
             background: #f9fafb;
             transform: none;
@@ -779,10 +769,6 @@
                  </div>
              `;
             fetchCampaigns();
-            setTimeout(() => {
-                initialFiltersState = getFiltersState();
-                updateClearButtonState();
-            }, 0);
          }
          
          function toggleDropdown(id) {
@@ -803,6 +789,10 @@
              } catch(err) {
                  document.getElementById("campList").innerHTML = '<div style="padding:10px; color:#f44;">Błąd</div>';
              }
+            setTimeout(() => {
+               initialFiltersState = getFiltersState();
+               updateClearButtonState();
+            }, 0);
          }
          
          async function loadDashboard(reset = true) {
@@ -839,6 +829,7 @@
                  hideLoader();
                  alert("Błąd: " + err.message);
              }
+            updateClearButtonState();
          }
          
          function displayData() {
@@ -1072,15 +1063,22 @@
                  campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).sort().join(",")
              };
          }
+
+         function filtersEqual(a, b) {
+            return a.dateFrom === b.dateFrom &&
+                   a.dateTo === b.dateTo &&
+                   a.status === b.status &&
+                   a.campaigns === b.campaigns;
+         }
          
          function updateClearButtonState() {
              const clearBtn = document.getElementById("clearBtn");
              if (!clearBtn || !initialFiltersState) return;
          
-             const current = getFiltersState();
-             const changed = JSON.stringify(current) !== JSON.stringify(initialFiltersState);
+             const changed = !filtersEqual(getFiltersState(), initialFiltersState);
          
              clearBtn.classList.toggle("disabled", !changed);
+             clearBtn.title = changed ? "" : "Brak aktywnych filtrów";
          }
          
          // ====== INIT ======
