@@ -640,7 +640,9 @@
          // ====== SINGLE LEAD ======
          async function loadSingle() {
              document.body.classList.remove("dashboard-mode");
-             showLoader("Pobieranie...");
+             if (reset) {
+               showLoader("Pobieranie...");
+             }
              
              try {
                  const d = await apiCall({ action: 'single', row, token });
@@ -752,7 +754,6 @@
                      </div>
                  </div>
              `;
-            fetchCampaigns();
          }
          
          function toggleDropdown(id) {
@@ -1166,13 +1167,20 @@
          }
          
          // ====== INIT ======
-         showLoader("Łączenie z serwerem...");
-         
          if (row && token) {
+             showLoader("Łączenie z serwerem...");
              loadSingle();
          } else {
+             // 1️⃣ render UI OD RAZU
              renderListLayout();
-             loadDashboard(true);
+         
+             // 2️⃣ lekki ping (cold start)
+             fetch(API_URL + '?action=boot', { keepalive: true })
+               .finally(() => {
+                 // 3️⃣ ciężkie rzeczy PO renderze
+                 setTimeout(fetchCampaigns, 150);
+                 setTimeout(() => loadDashboard(true), 300);
+               });
          }
          
          document.addEventListener("click", (e) => {
