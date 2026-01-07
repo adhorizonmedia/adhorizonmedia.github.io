@@ -660,6 +660,8 @@
            }
          }
 
+         const debouncedUpdateClearButton = debounce(updateClearButtonState, 250);
+         
          function debounce(func, wait) {
              let timeout;
              return function executedFunction(...args) {
@@ -1212,7 +1214,7 @@
          
          document.addEventListener("change", (e) => {
              if (e.target.closest(".dashboard-toolbar")) {
-                 updateClearButtonState();
+                 debouncedUpdateClearButton();
              }
          });
       </script>
