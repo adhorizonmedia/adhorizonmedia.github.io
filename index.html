@@ -2,7 +2,11 @@
 <html lang="pl">
    <head>
       <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self'; 
+               script-src 'self' 'unsafe-inline' https://script.google.com https://cdnjs.cloudflare.com; 
+               style-src 'self' 'unsafe-inline'; 
+               connect-src https://script.google.com;">
       <title>AdHorizon - System Obsługi Leadów</title>
       <style>
          * { box-sizing: border-box; }
@@ -567,10 +571,26 @@
          const CACHE_KEY_CAMPAIGNS = 'leadsCampaigns_v1';
          const CACHE_DURATION = 3600000;
          
-         const params = new URLSearchParams(window.location.search);
-         const row = params.get("row");
-         const token = params.get("token");
-         const key = params.get("key");
+         if (!row || !token) {
+           const stored = sessionStorage.getItem('leadAuth');
+           if (stored) {
+             try {
+               const auth = JSON.parse(stored);
+               row = auth.row;
+               token = auth.token;
+               // Wyczyść URL z tokenów
+               if (row) {
+                 const url = new URL(window.location.href);
+                 url.searchParams.set('lead', row);
+                 url.searchParams.delete('row');
+                 url.searchParams.delete('token');
+                 window.history.replaceState({}, '', url);
+               }
+             } catch (e) {
+               console.error('Invalid stored auth');
+             }
+           }
+         }
          
          let allLeadsMap = new Map();
          let sortedLeadsList = [];
@@ -595,7 +615,7 @@
                  timeout = setTimeout(() => func(...args), wait);
              };
          }
-         
+         const debouncedLoadDashboard = debounce(() => loadDashboard(true), 500);
          const debouncedUpdateClearButton = debounce(updateClearButtonState, 250);
          
          // ====== API ======
@@ -729,7 +749,7 @@
                              <input type="date" id="dateTo">
                          </div>
                          
-                         <button onclick="loadDashboard(true)" class="btn-tool btn-apply">🔍 Zastosuj</button>
+                         <button onclick="debouncedLoadDashboard()" class="btn-tool btn-apply">🔍 Zastosuj</button>
                          <button onclick="toggleSort()" id="sortBtn" class="btn-tool">📅 Najnowsze</button>
                          <button onclick="clearFilters()" id="clearBtn" class="btn-tool disabled">🧹 Wyczyść</button>
                      </div>
@@ -932,7 +952,9 @@
          }
          
          function openPreview(id) {
-             try {
+            sessionStorage.setItem('previewLead', id); 
+            
+            try {
                  const r = allLeadsMap.get(String(id));
                  if (!r) {
                      console.error('Lead not found:', id);
@@ -1179,20 +1201,20 @@
          
          // ====== INIT ======
          if (row && token) {
-             showLoader("Łączenie z serwerem...");
-             loadSingle();
-         } else {
-             // 1️⃣ render UI OD RAZU
-             renderListLayout();
-         
-             // 2️⃣ lekki ping (cold start)
-             fetch(API_URL + '?action=boot', { keepalive: true })
-               .finally(() => {
-                 // 3️⃣ ciężkie rzeczy PO renderze
-                 setTimeout(fetchCampaigns, 150);
-                 setTimeout(() => loadDashboard(true), 300);
-               });
-         }
+              showLoader("Łączenie z serwerem...");
+              loadSingle();
+            } else {
+              // 1️⃣ Render UI natychmiast
+              renderListLayout();
+            
+              // 2️⃣ Równoległe ładowanie (bez czekania na ping)
+              Promise.all([
+                fetch(API_URL + '?action=boot', { keepalive: true }).catch(() => {}),
+                fetchCampaigns()
+              ]).finally(() => {
+                loadDashboard(true);
+              });
+            }
          
          document.addEventListener("click", (e) => {
              if (!e.target.closest('.multiselect')) {
