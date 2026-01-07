@@ -566,12 +566,11 @@
          </div>
       </div>
       <script>
-         // ====== KONFIGURACJA ======
+         // ====== CONFIG ======
          const API_URL = "https://script.google.com/macros/s/AKfycbzKRhMb-C2ZXgMuDdn9tPNpKez9WpxtzPYsi1r_hU_uF8ZZuJBNJkcEJm5Epg43elll/exec";
-         const CACHE_KEY_CAMPAIGNS = 'leadsCampaigns_v3'; // Nowa wersja cache
+         const CACHE_KEY_CAMPAIGNS = 'leadsCampaigns_v4';
          const CACHE_DURATION = 3600000;
          
-         // Pobieranie parametrów URL i Auth
          const params = new URLSearchParams(window.location.search);
          let row = params.get("row");
          let token = params.get("token");
@@ -595,7 +594,6 @@
            }
          }
          
-         // Stan aplikacji
          let allLeadsMap = new Map();
          let sortedLeadsList = [];
          let currentTotal = 0;
@@ -604,9 +602,7 @@
          let currentLeadStatus = "nowy";
          let initialFiltersState = null;
          
-         // ====== UI UTILS (Loadery i Powiadomienia) ======
-         
-         // 1. Globalny Loader (Overlay) - używany do wszystkiego
+         // ====== UI SYSTEM (UJEDNOLICONY) ======
          function showLoader(text = "Ładowanie...") { 
              document.querySelector("#loader .loader-text").textContent = text;
              document.getElementById("loader").classList.remove("hidden"); 
@@ -615,40 +611,32 @@
          function hideLoader() { 
              document.getElementById("loader").classList.add("hidden");
          }
-
-         // 2. Globalny Toast (Dymek) - dla błędów niekrytycznych i sukcesów
+         
          function showToast(message, type = 'error') {
             const existing = document.getElementById('toast-msg');
             if (existing) existing.remove();
-
+         
             const toast = document.createElement('div');
             toast.id = 'toast-msg';
-            toast.style.cssText = `
-                position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-                background: ${type === 'success' ? '#2e7d32' : '#d32f2f'};
-                color: white; padding: 12px 24px; border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000;
-                font-weight: 600; font-size: 14px; opacity: 0; transition: opacity 0.3s;
-            `;
+            toast.className = type === 'success' ? 'success' : '';
             toast.innerText = message;
             document.body.appendChild(toast);
-            requestAnimationFrame(() => toast.style.opacity = '1');
+            
+            requestAnimationFrame(() => toast.classList.add('show'));
             setTimeout(() => {
-                toast.style.opacity = '0';
+                toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 300);
-            }, 3500);
+            }, 4000);
          }
-
-         // 3. Globalny Ekran Błędu - tylko dla błędów krytycznych (gdy aplikacja nie może działać)
+         
          function showErrorScreen(title, details) { 
-             // Ukrywamy loader jeśli jest
              hideLoader();
              app.innerHTML = `
                 <div class="content" style="text-align:center; padding:50px;">
                     <div style="font-size: 48px; margin-bottom: 20px;">⛔</div>
                     <h3 style="color:#d32f2f; margin-bottom:10px;">${title}</h3>
-                    <p style="color:#555; max-width: 400px; margin: 0 auto;">${details}</p>
-                    <button class="btn-tool" onclick="location.reload()" style="margin:30px auto;">Odśwież stronę</button>
+                    <p style="color:#666; max-width: 400px; margin: 0 auto 30px;">${details}</p>
+                    <button class="btn-tool" onclick="location.reload()">🔄 Odśwież stronę</button>
                 </div>`;
          }
          
@@ -666,7 +654,7 @@
                  timeout = setTimeout(() => func(...args), wait);
              };
          }
-
+         
          const debouncedLoadDashboard = debounce(() => loadDashboard(true), 500);
          const debouncedUpdateClearButton = debounce(updateClearButtonState, 250);
          
@@ -683,10 +671,9 @@
              
              if (!data.success) {
                 if (data.error?.includes('Za dużo')) {
-                    showToast('⏱️ Za dużo zapytań. Odczekaj chwilę.', 'error');
-                    return null;
+                    throw new Error('⏱️ Za dużo zapytań. Odczekaj chwilę.');
                 }
-                throw new Error(data.error || "Nieznany błąd");
+                throw new Error(data.error || "Nieznany błąd serwera");
              }
              return data;
            } catch (err) {
@@ -711,7 +698,7 @@
          
          async function loadSingle() {
              document.body.classList.remove("dashboard-mode");
-             showLoader("Pobieranie danych..."); // Ujednolicony loader
+             showLoader("Pobieranie danych leada...");
              
              try {
                  const d = await apiCall({ action: 'single', row, token });
@@ -721,7 +708,6 @@
                  }
                  hideLoader();
              } catch(err) {
-                 // Tutaj błąd jest krytyczny - nie możemy pokazać leada
                  showErrorScreen("Nie udało się pobrać leada", err.message);
              }
          }
@@ -819,19 +805,18 @@
          }
          
          async function loadDashboard(reset = true) {
-             // UJEDNOLICENIE: Używamy globalnego loadera zamiast spinnera w tabeli
              if (reset) {
                  showLoader("Pobieranie leadów...");
                  dashboardOffset = 0;
                  allLeadsMap.clear();
                  sortedLeadsList = [];
-                 document.getElementById("loadMoreBtn").style.display = "none";
-                 // Czyścimy widok na czas ładowania
                  document.getElementById("tableBody").innerHTML = "";
                  document.getElementById("cardView").innerHTML = "";
+                 document.getElementById("loadMoreBtn").style.display = "none";
              } else {
-                 document.getElementById("loadMoreBtn").innerText = "Ładowanie...";
-                 document.getElementById("loadMoreBtn").style.opacity = "0.7";
+                 const btn = document.getElementById("loadMoreBtn");
+                 btn.innerText = "Ładowanie...";
+                 btn.disabled = true;
              }
          
              try {
@@ -845,13 +830,8 @@
                      status: Array.from(document.querySelectorAll('#statusList input:checked')).map(cb => cb.value).join(","),
                      campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).join(",")
                  });
-                 
-                 // Reset przycisku
-                 const btn = document.getElementById("loadMoreBtn");
-                 btn.innerText = "Załaduj więcej";
-                 btn.style.opacity = "1";
-
-                 if (!d) return; 
+         
+                 if (!d) return;
                  
                  currentTotal = d.total;
                  d.rows.forEach(r => allLeadsMap.set(String(r.id), r));
@@ -859,26 +839,30 @@
                  
                  displayData();
                  
-                 // Pusty stan
                  if (allLeadsMap.size === 0) {
-                     const emptyMsg = `<div style="text-align:center; padding:30px; color:#888;">Brak wyników dla wybranych filtrów</div>`;
+                     const emptyMsg = `<div style="text-align:center; padding:40px; color:#999;">
+                         <div style="font-size:48px; margin-bottom:16px;">📭</div>
+                         <p style="font-size:16px; font-weight:600;">Brak wyników</p>
+                         <p style="font-size:14px;">Spróbuj zmienić filtry</p>
+                     </div>`;
                      document.getElementById("tableBody").innerHTML = `<tr><td colspan="8">${emptyMsg}</td></tr>`;
                      document.getElementById("cardView").innerHTML = emptyMsg;
                  }
-
-                 document.getElementById("loadMoreBtn").style.display = (allLeadsMap.size < currentTotal) ? "block" : "none";
+         
+                 const btn = document.getElementById("loadMoreBtn");
+                 btn.style.display = (allLeadsMap.size < currentTotal) ? "block" : "none";
+                 btn.innerText = "Załaduj więcej";
+                 btn.disabled = false;
                  
              } catch(err) {
-                 // UJEDNOLICENIE BŁĘDÓW
                  if (reset && allLeadsMap.size === 0) {
-                     // Jeśli to pierwsze ładowanie i padło -> Ekran Błędu
                      showErrorScreen("Błąd pobierania danych", err.message);
                  } else {
-                     // Jeśli to kolejne ładowanie -> Toast (nie niszczymy widoku)
                      showToast(err.message, 'error');
+                     document.getElementById("loadMoreBtn").disabled = false;
+                     document.getElementById("loadMoreBtn").innerText = "Załaduj więcej";
                  }
              } finally {
-                 // Zawsze ukryj loader (dla reset=true)
                  if (reset) hideLoader();
                  updateClearButtonState();
              }
@@ -894,7 +878,7 @@
              renderTable(sortedLeadsList);
              renderCards(sortedLeadsList);
          }
-
+         
          function renderTable(list) {
              const tbody = document.getElementById("tableBody");
              const fragment = document.createDocumentFragment();
@@ -920,7 +904,7 @@
              tbody.innerHTML = '';
              tbody.appendChild(fragment);
          }
-
+         
          function renderCards(list) {
              const cardView = document.getElementById("cardView");
              const fragment = document.createDocumentFragment();
@@ -947,7 +931,6 @@
              cardView.appendChild(fragment);
          }
          
-         // Funkcje pomocnicze
          function toggleDropdown(id) {
              const el = document.getElementById(id);
              const isShow = el.classList.contains("show");
@@ -970,21 +953,29 @@
              try {
                  const d = await apiCall({ action: 'campaigns' });
                  if (d && d.campaigns) {
-                     localStorage.setItem(CACHE_KEY_CAMPAIGNS, JSON.stringify({ data: d.campaigns, timestamp: Date.now() }));
+                     localStorage.setItem(CACHE_KEY_CAMPAIGNS, JSON.stringify({ 
+                         data: d.campaigns, 
+                         timestamp: Date.now() 
+                     }));
                      renderCampaigns(d.campaigns);
                  } else {
-                     document.getElementById("campList").innerHTML = '<div style="padding:10px; color:#888;">Brak kampanii</div>';
+                     document.getElementById("campList").innerHTML = 
+                         '<div style="padding:10px; color:#888;">Brak kampanii</div>';
                  }
              } catch(err) {
-                 document.getElementById("campList").innerHTML = '<div style="padding:10px; color:#f44;">Błąd pobierania</div>';
+                 document.getElementById("campList").innerHTML = 
+                     '<div style="padding:10px; color:#f44;">Błąd ładowania</div>';
              }
          }
-
+         
          function renderCampaigns(campaigns) {
              const c = document.getElementById("campList");
              c.innerHTML = campaigns.length 
-                 ? campaigns.map(name => `<label><input type="checkbox" value="${escapeHtml(name)}"> ${escapeHtml(name)}</label>`).join("")
+                 ? campaigns.map(name => 
+                     `<label><input type="checkbox" value="${escapeHtml(name)}"> ${escapeHtml(name)}</label>`
+                   ).join("")
                  : '<div style="padding:10px; color:#888;">Brak kampanii</div>';
+             
              setTimeout(() => {
                  initialFiltersState = getFiltersState();
                  updateClearButtonState();
@@ -1003,15 +994,16 @@
              document.getElementById("dateTo").value = "";
              document.querySelectorAll('.multiselect-content input').forEach(cb => cb.checked = false);
              loadDashboard(true);
-             initialFiltersState = getFiltersState();
-             updateClearButtonState();
          }
          
          function openPreview(id) {
             sessionStorage.setItem('previewLead', id);
              try {
                  const r = allLeadsMap.get(String(id));
-                 if (!r) { showToast('Nie znaleziono leada w pamięci', 'error'); return; }
+                 if (!r) { 
+                     showToast('Nie znaleziono leada', 'error'); 
+                     return; 
+                 }
          
                  document.getElementById("previewContent").innerHTML = `
                      <div class="box">
@@ -1042,8 +1034,15 @@
              if (currentLeadStatus === "nowy") {
                  updateStatus(newS);
              } else {
-                 const statusNames = { 'obsluzony': 'Obsłużony', 'nie_odbiera': 'Nie odbiera', 'odrzucony': 'Odrzucony' };
-                 document.getElementById("confirmMsg").innerHTML = `Czy na pewno chcesz zmienić status<br>z <strong>${statusNames[currentLeadStatus] || currentLeadStatus}</strong><br>na <strong>${statusNames[newS] || newS}</strong>?`;
+                 const statusNames = { 
+                     'obsluzony': 'Obsłużony', 
+                     'nie_odbiera': 'Nie odbiera', 
+                     'odrzucony': 'Odrzucony' 
+                 };
+                 document.getElementById("confirmMsg").innerHTML = `
+                     Czy na pewno chcesz zmienić status<br>
+                     z <strong>${statusNames[currentLeadStatus] || currentLeadStatus}</strong><br>
+                     na <strong>${statusNames[newS] || newS}</strong>?`;
                  document.getElementById("confirmModal").classList.remove("hidden");
                  document.getElementById("confirmYes").onclick = () => {
                      document.getElementById("confirmModal").classList.add("hidden");
@@ -1056,19 +1055,14 @@
          }
          
          async function updateStatus(s) {
-             showLoader("Zapisywanie..."); // Ujednolicony loader
+             showLoader("Zapisywanie statusu...");
              try {
                  const d = await apiCall({ action: 'update', row, token, status: s });
                  hideLoader();
                  if (d) {
                      localStorage.removeItem(CACHE_KEY_CAMPAIGNS);
-                     app.innerHTML = `
-                        <div class="content" style="text-align:center; padding:50px; display:flex; flex-direction:column; align-items:center; justify-content:center; height:80vh;">
-                            <div style="font-size:60px; margin-bottom:20px;">✅</div>
-                            <h2 style="color:#2e7d32;">Zapisano pomyślnie</h2>
-                            <p>Status został zaktualizowany.</p>
-                            <button class="btn-tool" onclick="location.reload()" style="margin-top:30px; min-width:120px;">Wróć</button>
-                        </div>`;
+                     showToast('Status zaktualizowany pomyślnie!', 'success');
+                     setTimeout(() => location.reload(), 1500);
                  }
              } catch (e) { 
                  hideLoader();
@@ -1091,9 +1085,10 @@
                  campaigns: Array.from(document.querySelectorAll('#campList input:checked')).map(cb => cb.value).sort().join(",")
              };
          }
-
+         
          function filtersEqual(a, b) {
-            return a.dateFrom === b.dateFrom && a.dateTo === b.dateTo && a.status === b.status && a.campaigns === b.campaigns;
+            return a.dateFrom === b.dateFrom && a.dateTo === b.dateTo && 
+                   a.status === b.status && a.campaigns === b.campaigns;
          }
          
          function updateClearButtonState() {
@@ -1103,8 +1098,8 @@
              clearBtn.classList.toggle("disabled", !changed);
              clearBtn.title = changed ? "" : "Brak aktywnych filtrów";
          }
-
-         // Helpers
+         
+         // ====== HELPERS ======
          function statusClass(s) {
              s = String(s || "").toLowerCase();
              if (s.includes("porzu")) return "s-porzucony";
@@ -1177,7 +1172,9 @@
           const buttons = document.querySelectorAll('.buttons.status-buttons a');
           const now = new Date();
           buttons.forEach(btn => {
-              const key = btn.classList.contains('obs') ? 'obsluzony' : btn.classList.contains('nie') ? 'nie_odbiera' : btn.classList.contains('odrz') ? 'odrzucony' : null;
+              const key = btn.classList.contains('obs') ? 'obsluzony' 
+                        : btn.classList.contains('nie') ? 'nie_odbiera' 
+                        : btn.classList.contains('odrz') ? 'odrzucony' : null;
               if (!key) return;
               let muted = false;
               if (key === 'porzucony') muted = true;
@@ -1188,38 +1185,39 @@
                   const diffMins = (now - updated) / 60000;
                   if (diffMins > 20) muted = true;
               }
-              if (muted) {
-                  btn.style.opacity = 0.65;
-                  btn.style.filter = 'grayscale(25%)';
-              } else {
-                  btn.style.opacity = 1;
-                  btn.style.filter = 'none';
-              }
+              btn.style.opacity = muted ? 0.65 : 1;
+              btn.style.filter = muted ? 'grayscale(25%)' : 'none';
           });
          }
          
-         // Event Listeners
+         // ====== EVENT LISTENERS ======
          document.addEventListener("click", (e) => {
              if (!e.target.closest('.multiselect')) {
                  document.querySelectorAll('.multiselect-content').forEach(el => el.classList.remove('show'));
              }
          });
+         
          document.addEventListener("change", (e) => {
-             if (e.target.closest(".dashboard-toolbar")) debouncedUpdateClearButton();
+             if (e.target.closest(".dashboard-toolbar")) {
+                 debouncedUpdateClearButton();
+             }
          });
-
-         // Init
+         
+         // ====== INIT (Z NATYCHMIASTOWYM LOADEREM) ======
          if (row && token) {
-              loadSingle();
+             loadSingle();
          } else {
-              renderListLayout();
-              Promise.all([
-                fetch(API_URL + '?action=boot', { keepalive: true }).catch(() => {}),
-                fetchCampaigns()
-              ]).finally(() => {
-                loadDashboard(true);
-              });
+             // ✅ POKAZUJEMY LOADER OD RAZU!
+             showLoader("Inicjalizacja...");
+             renderListLayout();
+             
+             Promise.all([
+                 fetch(API_URL + '?action=boot', { keepalive: true }).catch(() => {}),
+                 fetchCampaigns()
+             ]).finally(() => {
+                 loadDashboard(true);
+             });
          }
-      </script>
+         </script>
    </body>
 </html>
