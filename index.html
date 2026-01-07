@@ -992,36 +992,56 @@
          }
          
          function calculateWaitTimes(createdStr, updatedStr, waitUntilStr, status) {
-             if (!createdStr || createdStr === "-") return "-";
+             if (!createdStr || createdStr === "-") return "—";
          
              const parse = (str) => {
                  if (!str || str === "-") return null;
                  const [date, time] = str.split(" ");
-                 const [y, mo, d] = date.split("-");
-                 const [h, mi] = time ? time.split(":") : [0, 0];
-                 return new Date(y, mo - 1, d, h, mi);
+                 if (!date) return null;
+         
+                 const [y, mo, d] = date.split("-").map(Number);
+                 const [h = 0, mi = 0] = (time || "").split(":").map(Number);
+         
+                 const dt = new Date(y, mo - 1, d, h, mi);
+                 return isNaN(dt.getTime()) ? null : dt;
              };
          
              const created = parse(createdStr);
-             const updated = parse(updatedStr);
+             if (!created) return "—";
+         
+             let updated = parse(updatedStr);
              const waitUntil = parse(waitUntilStr);
              const now = new Date();
          
-             const s = String(status).toLowerCase();
+             // 🔒 SANITY CHECK – aktualizacja nie może być wcześniejsza niż utworzenie
+             if (updated && updated < created) {
+                 updated = null;
+             }
+         
+             const s = String(status || "").toLowerCase();
              const isFinished = ['obs', 'nie_odb', 'odrz', 'porzu'].some(x => s.includes(x));
+         
              const end = (isFinished && updated) ? updated : now;
          
-             const rawMins = Math.floor((end - created) / 60000);
-             let workMins = Math.floor((end - (waitUntil > created ? waitUntil : created)) / 60000);
+             // 🔒 RAW TIME (całkowity)
+             let rawMins = Math.floor((end - created) / 60000);
+             if (rawMins < 0) rawMins = 0;
+         
+             // 🔒 WORK TIME (od waitUntil lub created)
+             const workStart =
+                 waitUntil && waitUntil > created ? waitUntil : created;
+         
+             let workMins = Math.floor((end - workStart) / 60000);
              if (workMins < 0) workMins = 0;
          
+             // 🎨 Kolor
              let color = "#2e7d32";
              if (workMins > 1440) color = "#880e4f";
              else if (workMins > 120) color = "#d32f2f";
              else if (workMins > 30) color = "#ef6c00";
          
              const fmt = (m) => {
-                 if (m > 2880) return Math.floor(m / 1440) + " dni";
+                 if (m >= 1440) return Math.floor(m / 1440) + " dni";
                  const h = Math.floor(m / 60);
                  return h > 0 ? `${h}h ${m % 60}m` : `${m}m`;
              };
